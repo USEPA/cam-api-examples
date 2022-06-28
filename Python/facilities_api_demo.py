@@ -2,7 +2,7 @@ import requests
 import json
 import pandas as pd
 
-API_KEY = 'B9jNE2eT6xiWOANh0jjeHcBKbZvyD7P3gIgARghb'
+API_KEY = 'YOUR_API_KEY'
 
 # function for printing json neatly
 def jprint(obj):

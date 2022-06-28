@@ -3,7 +3,7 @@ import io
 import requests
 import pandas as pd
 
-API_KEY = 'B9jNE2eT6xiWOANh0jjeHcBKbZvyD7P3gIgARghb'
+API_KEY = 'YOUR_API_KEY'
 # S3 bucket url base - s3Path in get requests along with this base url
 # is the full path to the files
 BUCKET_URL_BASE = 'https://api.epa.gov/easey/dev/bulk-files/'

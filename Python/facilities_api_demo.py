@@ -21,7 +21,7 @@ parameters = {
 
 # making get request
 response = requests.get("https://api.epa.gov/easey/facilities-mgmt/facilities/attributes", params=parameters)
-print(response.status_code)
+print("Status code: "+str(response.status_code))
 
 # printing in json format
 jprint(response.json())

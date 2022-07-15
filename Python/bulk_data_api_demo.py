@@ -4,8 +4,7 @@ import requests
 import pandas as pd
 
 API_KEY = 'YOUR_API_KEY'
-# S3 bucket url base - s3Path in get requests along with this base url
-# is the full path to the files
+# S3 bucket url base + s3Path (in get request) = the full path to the files
 BUCKET_URL_BASE = 'https://api.epa.gov/easey/dev/bulk-files/'
 
 parameters = {
@@ -26,9 +25,9 @@ for obj in response.json():
     # store metadata of the file
     objMeta = obj["metadata"]
     # look for 'year', 'quarter', 'datatype', 'datasubtype' in key names
-    if all(x in objMeta.keys() for x in ['year', 'quarter', 'datatype', 'datasubtype']):
+    if all(x in objMeta.keys() for x in ['year', 'quarter', 'dataType', 'dataSubType']):
         # collect only 2021 daily emission files (quarter files at this point)
-        if (objMeta['year'] == '2021') & (objMeta['datatype'] == 'Emissions') & (objMeta['datasubtype'] == 'Daily'):
+        if (objMeta['year'] == '2021') & (objMeta['dataType'] == 'Emissions') & (objMeta['dataSubType'] == 'Daily'):
             # print url, get content and concatenate to dailyEmissions
             url = BUCKET_URL_BASE+obj["s3Path"]
             print("Full path to file on S3: "+url)

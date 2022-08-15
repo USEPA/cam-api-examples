@@ -4,7 +4,7 @@ library(jsonlite)
 
 # API info
 apiUrlBase <- "https://api.epa.gov/easey/dev"
-apiKEY <- "B9jNE2eT6xiWOANh0jjeHcBKbZvyD7P3gIgARghb"
+apiKEY <- "YOUR_API_KEY"
 
 # base to S3 bucket
 bucketUrlBase <- 'https://api.epa.gov/easey/dev/bulk-files/'

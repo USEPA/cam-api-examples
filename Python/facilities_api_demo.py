@@ -2,6 +2,9 @@ import requests
 import json
 import pandas as pd
 
+# This is an example of querying facility data.  
+# This is example also shows how to page through results.
+
 API_KEY = 'YOUR_API_KEY'
 
 # function for printing json neatly
@@ -20,6 +23,9 @@ parameters = {
 }
 
 # making get request
+# Note: the x-total-count header is the total number of records in the response.  
+# You can use this to determine if you need to make another request to get all the records.
+# TODO: add pagination to this example
 response = requests.get("https://api.epa.gov/easey/facilities-mgmt/facilities/attributes", params=parameters)
 print("Status code: "+str(response.status_code))
 

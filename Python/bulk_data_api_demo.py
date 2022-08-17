@@ -3,16 +3,20 @@ import io
 import requests
 import pandas as pd
 
+# The bulk data api allows you to download prepackaged data sets. There are two endpoints for obtainging bulk data. 
+# The first is the /bulk-files endpoint which returns a metadata about files. This metadata includes the path to the 
+# file.  The second is the /easey/bulk-files endpoint which along with the path, returns the actual file. 
+
 API_KEY = 'YOUR_API_KEY'
 # S3 bucket url base + s3Path (in get request) = the full path to the files
-BUCKET_URL_BASE = 'https://api.epa.gov/easey/dev/bulk-files/'
+BUCKET_URL_BASE = 'https://api.epa.gov/easey/bulk-files/'
 
 parameters = {
     'api_key': API_KEY
 }
 
 # executing get request
-response = requests.get("https://api.epa.gov/easey/dev/camd-services/bulk-files", params=parameters)
+response = requests.get("https://api.epa.gov/easey/camd-services/bulk-files", params=parameters)
 
 # printing status code
 print("Status code: "+str(response.status_code))

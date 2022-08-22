@@ -39,7 +39,7 @@ The script retrieves facility attribute data using the facilities-mgmt API. Chan
 To execute the script run in your terminal:
 
 `cd Python/`
-`python bulk_data_api_demo.py`
+`python facilities_api_demo.py`
 
 ## Description of R scripts
 Recommended versions of R to have installed to use these scripts is R (>= 3.2).
@@ -71,3 +71,7 @@ Insert your API key at
 The script retrieves annual emissions attribute data using the emission-mgmt API. Change the query parameters on line 13 to request other data from the endpoint.
 
 Use RStudio to run the script.
+
+## Disclaimer  
+
+The United States Environmental Protection Agency (EPA) GitHub project code is provided on an "as is" basis and the user assumes responsibility for its use. EPA has relinquished control of the information and no longer has responsibility to protect the integrity , confidentiality, or availability of the information. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by EPA. The EPA seal and logo shall not be used in any manner to imply endorsement of any commercial product or activity by EPA or the United States Government.

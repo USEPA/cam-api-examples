@@ -3,7 +3,7 @@ library(htmltools)
 library(jsonlite)
 
 # API info
-apiUrlBase <- "https://api.epa.gov/easey/dev"
+apiUrlBase <- "https://api.epa.gov/easey/"
 apiKEY <- "YOUR_API_KEY"
 
 # base to S3 bucket
@@ -25,4 +25,4 @@ complianceFiles <- bulkFiles[bulkFiles$metadata$dataType=="Compliance",]
 ARPComplianceFile <- complianceFiles[complianceFiles$filename == 'compliance-arp.csv',]
 
 # Read the csv from source
-ARPCompliaceDF <- read.csv(paste0(bucketUrlBase,ARPComplianceFile$s3Path))
+ARPComplianceDF <- read.csv(paste0(bucketUrlBase,ARPComplianceFile$s3Path))

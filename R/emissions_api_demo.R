@@ -3,8 +3,8 @@ library(htmltools)
 library(jsonlite)
 
 # API info
-apiUrlBase <- "https://api-easey.app.cloud.gov"
-apiKEY <- "YOUR_API_KEY"
+apiUrlBase <- "https://api.epa.gov/easey/"
+apiKEY <- "ycEOBpUCRfLckKO4j2SC1S4LiYvrRpzxk3ZW54rw"
 
 # annual emissions url
 annualEmissionsUrl <- paste0(apiUrlBase,"/streaming-services/emissions/apportioned/annual?API_KEY=",apiKEY)

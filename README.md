@@ -6,7 +6,7 @@ The purpose of this repo is to provide users examples on how to use the Clean Ai
 To learn more about the programs associated with the data through these APIs, as well as other information, visit the [CAMD webpage](https://www.epa.gov/airmarkets).
 
 ### Data.gov API key
-Visit [https://api.data.gov/](https://api.data.gov/) to find API documentation across the federal government. Be sure to [sign up for an API key](https://api.data.gov/signup/) which can be used not only for the CAM APIs, but also for the other APIs you can find from api.data.gov.
+Visit [https://api.data.gov/](https://api.data.gov/) to find API documentation across the federal government. Be sure to [sign up for an API key](https://www.epa.gov/airmarkets/cam-api-portal#/api-key-signup) which can be used not only for the CAM APIs, but also for the other APIs you can find from api.data.gov.
 
 ## Description of python scripts
 Recommended versions of Python to have installed to use these scripts is 3.8, 3.9 or 3.10.

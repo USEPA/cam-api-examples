@@ -6,6 +6,28 @@ library(jsonlite)
 apiUrlBase <- "https://api.epa.gov/easey"
 apiKEY <- "YOUR_API_KEY"
 
+####### Streaming services API #######
+
+# If you have a lot of data to request, use the streaming services API to avoid
+# pagination and much quicker collection of the data you need.
+
+# streaming annual emissions endpoint url
+annualEmissionsUrl <- paste0(apiUrlBase,"/streaming-services/emissions/apportioned/annual?API_KEY=",apiKEY)
+
+# define query parameters
+query <- list(year="2020",
+              programCodeInfo="CSNOX",
+              stateCode=paste0(c("IN","MI"), collapse = '|'))
+
+# API GET request
+res = GET(annualEmissionsUrl, query = query)
+
+# convert response to a data frame
+annualEmissData <- fromJSON(rawToChar(res$content))
+
+# print head of dataframe
+print(head(annualEmissData))
+
 ####### Emissions mgmt API #######
 
 # annual emissions endpoint url
@@ -31,25 +53,3 @@ print(fieldMapping)
 # convert response to a data frame
 annualEmissDataPage <- fromJSON(rawToChar(res$content))
 print(annualEmissDataPage)
-
-####### Streaming services API #######
-
-# If you have a lot of data to request, use the streaming services API to avoid
-# pagination and much quicker collection of the data you need.
-
-# streaming annual emissions endpoint url
-annualEmissionsUrl <- paste0(apiUrlBase,"/streaming-services/emissions/apportioned/annual?API_KEY=",apiKEY)
-
-# define query parameters
-query <- list(year="2020",
-              programCodeInfo="CSNOX",
-              stateCode=paste0(c("IN","MI"), collapse = '|'))
-
-# API GET request
-res = GET(annualEmissionsUrl, query = query)
-
-# convert response to a data frame
-annualEmissData <- fromJSON(rawToChar(res$content))
-
-# print head of dataframe
-print(head(annualEmissData))

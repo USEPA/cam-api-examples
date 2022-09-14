@@ -66,10 +66,10 @@ alabamaXmlFiles <- mpXmlEdrFiles[mpXmlEdrFiles$metadata$stateCode =="AL",]
 
 # make directory for XML files
 currentDirectory <- getwd()
-dir.create(paste0(currentDirectory,'/AlabamaXML'))
 alabamaDirPath <- paste0(currentDirectory,'/AlabamaXML')
+dir.create(alabamaDirPath)
 
-# Download XML files and place them in rierside directory
+# Download XML files and place them in alabamaDirPath directory
 for (i in 1:nrow(alabamaXmlFiles)){
   s3Path <- alabamaXmlFiles$s3Path[i]
   filename <- alabamaXmlFiles$filename[i]

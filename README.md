@@ -20,21 +20,31 @@ Before executing the scripts, install the following packages.
 ### Python/bulk_data_api_demo.py
 Insert your API key at
 
-`6 | API_KEY = 'YOUR_API_KEY'`
+`API_KEY = 'YOUR_API_KEY'`
 
-The script retrieves daily emissions files by the quarter of 2021 using the camd-services API. The script then concatenates the files to make a single data frame.
+The script retrieves daily emissions files by the quarter of 2021 using the camd-services API. The script then concatenates the files to make a single data frame. Additionally, the script will also download XML files to a local directory.
 
 To execute the script run in your terminal:
 
 `cd Python/`
 `python bulk_data_api_demo.py`
 
-### Python/facilities_api_demo.py
+### Python/emissions_data_demo.R
+
 Insert your API key at
 
-`5 | API_KEY = 'YOUR_API_KEY'`
+`API_KEY = 'YOUR_API_KEY'`
 
-The script retrieves facility attribute data using the facilities-mgmt API. Change the parameters on line 14 to request other data from the endpoint.
+The script retrieves annual emissions attribute data by using the streaming-services and emission-mgmt APIs. The script also prints out useful data from the response headers too.
+
+Use RStudio to run the script.
+
+### Python/facility_data_demo.py
+Insert your API key at
+
+`API_KEY = 'YOUR_API_KEY'`
+
+The script retrieves facility attribute data by using the streaming-services and facilities-mgmt APIs. The script also prints out useful data from the response headers too.
 
 To execute the script run in your terminal:
 
@@ -56,19 +66,29 @@ Before executing the scripts, install the following packages.
 
 Insert your API key at
 
-`7 | apiKEY <- "YOUR_API_KEY"`
+`apiKEY <- "YOUR_API_KEY"`
 
-The script retrieves ARP Compliance data using the camd-services API. The script collects the file from the url path to single data frame.
+The script retrieves CSAPR compliance data and daily emissions data using the camd-services API. Additionally, the script will also download XML files to a local directory.
 
 Use RStudio to run the script.
 
-### R/emissions_api_demo.R
+### R/emissions_data_demo.R
 
 Insert your API key at
 
-`7 | apiKEY <- "YOUR_API_KEY"`
+`apiKEY <- "YOUR_API_KEY"`
 
-The script retrieves annual emissions attribute data using the emission-mgmt API. Change the query parameters on line 13 to request other data from the endpoint.
+The script retrieves annual emissions attribute data by using the streaming-services and emission-mgmt APIs. The script also prints out useful data from the response headers too.
+
+Use RStudio to run the script.
+
+### R/facility_data_demo.py
+
+Insert your API key at
+
+`apiKEY <- "YOUR_API_KEY"`
+
+The script retrieves annual emissions attribute data by using the streaming-services and facilities-mgmt APIs. The script also prints out useful data from the response headers too.
 
 Use RStudio to run the script.
 

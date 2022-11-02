@@ -20,47 +20,57 @@ Before executing the scripts, install the following packages.
 `pip install pandas`
 <br/><br/>
 
-### Python/bulk_data_api_demo.py
-The script retrieves daily emissions files by the quarter of 2021 using the camd-services API. The script then concatenates the files to make a single data frame. Additionally, the script will also download XML files to a local directory.
+### Python/account_data_demo.py
+The script retrieves account holdings and compliance data by using the streaming-services and account-mgmt APIs. The script also prints out useful data from the response headers too.
 
 <ol>
-<li>In the file, insert your API key at: `API_KEY = 'YOUR_API_KEY'`</li>
+<li>In the file, insert your API key at: 
+
+`API_KEY = 'YOUR_API_KEY'`
+
+</li>
 <li>To execute the script run in your terminal:<br>
 
 `cd Python/`<br>
-`python bulk_data_api_demo.py`
+`python account_data_demo.py`
 </li>
-<li>If successful, you will see a response, `Status code: 200`.</li>
+<li>If successful, you will see a response, `Status code: 200` and printed tables of data.</li>
 </ol>
-<br/><br/>
 
 ### Python/emissions_data_demo.py
 The script retrieves annual emissions attribute data by using the streaming-services and emission-mgmt APIs. The script also prints out useful data from the response headers too.
 
 <ol>
-<li>In the file, insert your API key at: `API_KEY = 'YOUR_API_KEY'`</li>
+<li>In the file, insert your API key at: 
+
+`API_KEY = 'YOUR_API_KEY'`
+
+</li>
 <li>To execute the script run in your terminal:<br>
 
 `cd Python/`<br>
 `python emissions_data_demo.py`
 </li>
-<li>If successful, you will see a response, `Status code: 200`.</li>
+<li>If successful, you will see a response, `Status code: 200` and printed tables of data.</li>
 </ol>
-<br/><br/>
 
 ### Python/facility_data_demo.py
 The script retrieves facility attribute data by using the streaming-services and facilities-mgmt APIs. The script also prints out useful data from the response headers too.
 
 <ol>
-<li>In the file, insert your API key at: `API_KEY = 'YOUR_API_KEY'`</li>
+<li>In the file, insert your API key at: 
+
+`API_KEY = 'YOUR_API_KEY'`
+
+</li>
 <li>To execute the script run in your terminal:<br>
 
 `cd Python/`<br>
-`python facilities_api_demo.py`</br>
+`python facility_api_demo.py`</br>
 </li>
-<li>If successful, you will see a response, `Status code: 200`.</li>
+<li>If successful, you will see a response, `Status code: 200` and printed tables of data.</li>
 </ol>
-<br/><br/>
+<br/>
 
 ## R Scripts Description
 Recommended versions of R to have installed to use these scripts is R (>= 3.2).
@@ -74,16 +84,15 @@ Before executing the scripts, install the following packages.
 `install.packages("jsonlite")`
 <br/><br/>
 
-### R/bulk_data_api_demo.R
+### R/account_data_demo.R
 
 Insert your API key at
 
 `apiKEY <- "YOUR_API_KEY"`
 
-The script retrieves CSAPR compliance data and daily emissions data using the camd-services API. Additionally, the script will also download XML files to a local directory.
+The script retrieves account holdings and compliance data by using the streaming-services and account-mgmt APIs. The script also prints out useful data from the response headers too.
 
 Use RStudio to run the script.
-<br/><br/>
 
 ### R/emissions_data_demo.R
 
@@ -94,7 +103,6 @@ Insert your API key at
 The script retrieves annual emissions attribute data by using the streaming-services and emission-mgmt APIs. The script also prints out useful data from the response headers too.
 
 Use RStudio to run the script.
-<br/><br/>
 
 ### R/facility_data_demo.R
 

@@ -8,7 +8,7 @@ library(data.table)
 # file.  The second is the /easey/bulk-files endpoint which along with the path, returns the actual file.
 
 # Set your API key here
-apiKEY <- "aezsOMLgvauCYIBhHvj1nmdMWhstWBu46NjFICnn"
+apiKEY <- "YOUR_API_KEY"
 
 # change this to the date you want to start downloading files from
 # all files after this date and time will be downloaded

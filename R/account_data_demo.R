@@ -11,7 +11,7 @@ library(jsonlite)
 # Below are examples of querying hourly and annual emissions data.
 
 # Set your API key here
-apiKEY <- "aezsOMLgvauCYIBhHvj1nmdMWhstWBu46NjFICnn"
+apiKEY <- "YOUR_API_KEY"
 
 # API info
 apiUrlBase <- "https://api.epa.gov/easey"

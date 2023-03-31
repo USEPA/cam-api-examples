@@ -1,17 +1,24 @@
 import requests
+import sys
+from datetime import datetime
 import pandas as pd
 
-# These are examples of querying account data.
+#######
+# NOTE: If you are looking to download data in bulk, please see the bulk_data_demo.py file.
+# An example of a bulk requests is downloading all holdings or transactions data for a whole program.
+#######
 
-####### Streaming services API #######
+# Below are examples of querying hourly and annual emissions data.
 
-# If you have a lot of data to request, use the streaming services API to avoid
-# pagination and much quicker collection of the data you need.
-
-## Example 1
-
+# Set your API key here
 API_KEY = 'YOUR_API_KEY'
 
+####### Streaming services API #######
+# This is an example of how to use the streaming services API to get account holdings and allowance compliance data.
+
+# Use this API for continuous data streams and avoiding paging through results.
+
+### Account Holdings ###
 # api parameters for the streaming account holdings endpoint
 parameters = {
     'api_key': API_KEY,
@@ -26,13 +33,15 @@ accountHoldingsResponse = requests.get(accountHoldingsUrl, params=parameters)
 
 # printing useful info from the response
 print("Status code: "+str(accountHoldingsResponse.status_code))
+if (int(accountHoldingsResponse.status_code) > 399):
+    sys.exit("Error message: "+accountHoldingsResponse.json()['error']['message'])
+
 print("Field Mappings: "+str(accountHoldingsResponse.headers['X-Field-Mappings']))
 # collecting data as a data frame
 accountHoldingsResponse_df = pd.DataFrame(accountHoldingsResponse.json())
 print(accountHoldingsResponse_df)
 
-## Example 2
-
+### Allowance Compliance ###
 # api parameters for the streaming allowance compliance endpoint
 parameters = {
     'api_key': API_KEY,
@@ -40,22 +49,25 @@ parameters = {
     'year': '|'.join(str(y) for y in range(2010,2021))
 }
 
-# making get request using the account compliance endpoint
-accountComplianceUrl = "https://api.epa.gov/easey/streaming-services/allowance-compliance"
-accountComplianceResponse = requests.get(accountComplianceUrl, params=parameters)
+# making get request using the allowance compliance endpoint
+allowanceComplianceUrl = "https://api.epa.gov/easey/streaming-services/allowance-compliance"
+allowanceComplianceResponse = requests.get(allowanceComplianceUrl, params=parameters)
 
 # printing useful info from the response
-print("Status code: "+str(accountComplianceResponse.status_code))
-print("Field Mappings: "+str(accountComplianceResponse.headers['X-Field-Mappings']))
+print("Status code: "+str(allowanceComplianceResponse.status_code))
+if (int(allowanceComplianceResponse.status_code) > 399):
+    sys.exit("Error message: "+allowanceComplianceResponse.json()['error']['message'])
+
+print("Field Mappings: "+str(allowanceComplianceResponse.headers['X-Field-Mappings']))
 # collecting data as a data frame
-accountComplianceResponse_df = pd.DataFrame(accountComplianceResponse.json())
-print(accountComplianceResponse_df)
+allowanceComplianceResponse_df = pd.DataFrame(allowanceComplianceResponse.json())
+print(allowanceComplianceResponse_df)
+
 
 ####### Account mgmt API #######
-# This is example shows how to page through results.
+# This is an example of how to use the account mgmt API to get account holdings and allowance compliance data.
 
-## Example 1
-
+### Account Holdings ###
 # api parameters for the account holdings endpoint
 parameters = {
     'api_key': API_KEY,
@@ -70,10 +82,12 @@ parameters = {
 accountHoldingsPageUrl = "https://api.epa.gov/easey/account-mgmt/allowance-holdings"
 accountHoldingsPageResponse = requests.get(accountHoldingsPageUrl, params=parameters)
 
-# Note: the x-total-count header is the total number of records in the response.
-# You can use this to determine if you need to make another request to get all the records.
-totalCount = accountHoldingsPageResponse.headers['X-Total-Count']
 print("Status code: "+str(accountHoldingsPageResponse.status_code))
+if (int(accountHoldingsPageResponse.status_code) > 399):
+    sys.exit("Error message: "+accountHoldingsPageResponse.json()['error']['message'])
+
+# Note: the x-total-count header is the total number of records in the query (not influenced by paging).
+totalCount = accountHoldingsPageResponse.headers['X-Total-Count']
 #print("Field Mappings: "+str(response.headers['X-Field-Mappings']))
 print("Total Count: "+str(totalCount))
 
@@ -81,9 +95,9 @@ print("Total Count: "+str(totalCount))
 accountHoldingsPage_df = pd.DataFrame(accountHoldingsPageResponse.json())
 print(accountHoldingsPage_df)
 
-## Example 2
 
-# api parameters for the account compliance endpoint
+### Allowance Compliance ###
+# api parameters for the allowance compliance endpoint
 parameters = {
     'api_key': API_KEY,
     'programCodeInfo': 'ARP',
@@ -93,16 +107,19 @@ parameters = {
 }
 
 # making get request
-accountCompliancePageUrl = "https://api.epa.gov/easey/account-mgmt/allowance-compliance"
-accountCompliancePageResponse = requests.get(accountCompliancePageUrl, params=parameters)
+allowanceCompliancePageUrl = "https://api.epa.gov/easey/account-mgmt/allowance-compliance"
+allowanceCompliancePageResponse = requests.get(allowanceCompliancePageUrl, params=parameters)
 
-# Note: the x-total-count header is the total number of records in the response.
-# You can use this to determine if you need to make another request to get all the records.
-totalCount = accountCompliancePageResponse.headers['X-Total-Count']
-print("Status code: "+str(accountCompliancePageResponse.status_code))
+print("Status code: "+str(allowanceCompliancePageResponse.status_code))
+if (int(allowanceCompliancePageResponse.status_code) > 399):
+    sys.exit("Error message: "+allowanceCompliancePageResponse.json()['error']['message'])
+
+# Note: the x-total-count header is the total number of records in the query (not infuenced by paging).
+totalCount = allowanceCompliancePageResponse.headers['X-Total-Count']
+print("Status code: "+str(allowanceCompliancePageResponse.status_code))
 #print("Field Mappings: "+str(response.headers['X-Field-Mappings']))
 print("Total Count: "+str(totalCount))
 
 # print the first page of the data
-accountCompliancePage_df = pd.DataFrame(accountCompliancePageResponse.json())
-print(accountCompliancePage_df)
+allowanceCompliancePage_df = pd.DataFrame(allowanceCompliancePageResponse.json())
+print(allowanceCompliancePage_df)

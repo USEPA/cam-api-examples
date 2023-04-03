@@ -2,29 +2,47 @@ library(httr)
 library(htmltools)
 library(jsonlite)
 
-# API info
-apiUrlBase <- "https://api.epa.gov/easey"
+#######
+# NOTE: If you are looking to download data in bulk, please see the bulk_data_demo.py file.
+# An example of a bulk requests is downloading all holdings or transactions data for a whole program.
+#######
+
+
+# Below are examples of querying hourly and annual emissions data.
+
+# Set your API key here
 apiKEY <- "YOUR_API_KEY"
 
+# API info
+apiUrlBase <- "https://api.epa.gov/easey"
+
 ####### Streaming services API #######
+# This is an example of how to use the streaming services API to get account holdings and allowance compliance data.
 
-# If you have a lot of data to request, use the streaming services API to avoid
-# pagination and much quicker collection of the data you need.
+# Use this API for continuous data streams and avoiding paging through results.
 
-## Example 1
+### Account Holdings ###
 
 # streaming account holdings endpoint url
 accountHoldingsUrl <- paste0(apiUrlBase,"/streaming-services/allowance-holdings?API_KEY=",apiKEY)
 
-# define query parameters
+# api parameters for the streaming account holdings endpoint
 query <- list(accountType=paste0(c("Facility Account","General Account"), collapse = '|'),
               programCodeInfo="CSOSG3",
               exclude="epaRegion")
 
-# API GET request
+# making get request using the account holdings endpoint
 res = GET(accountHoldingsUrl, query = query)
+# printing the response error message if the response is not successful
+if (res$status_code > 399){
+  errorFrame <- fromJSON(rawToChar(res$content))
+  stop(paste("Error Code:",errorFrame$error$code,errorFrame$error$message))
+}
 
-# convert response to a data frame
+fieldMappings <- fromJSON(res$headers$`x-field-mappings`)
+print(fieldMappings)
+
+# collecting data as a data frame
 accountHoldingsData <- fromJSON(rawToChar(res$content))
 
 # print head of dataframe
@@ -35,19 +53,24 @@ ownerHoldingsData <- accountHoldingsData %>%
   group_by(ownerOperator) %>%
   summarise(totalBlock = sum(totalBlock))
 
-## Example 2
+### Allowance Compliance ###
 
 # streaming allowance compliance endpoint url
 allowanceComplianceUrl <- paste0(apiUrlBase,"/streaming-services/allowance-compliance?API_KEY=",apiKEY)
 
-# define query parameters
+# api parameters for the streaming allowance compliance endpoint
 query <- list(programCodeInfo="ARP",
               year=paste0(seq(2010,2021), collapse = '|'))
 
-# API GET request
+# making get request using the allowance compliance endpoint
 res = GET(allowanceComplianceUrl, query = query)
+# printing the response error message if the response is not successful
+if (res$status_code > 399){
+  errorFrame <- fromJSON(rawToChar(res$content))
+  stop(paste("Error Code:",errorFrame$error$code,errorFrame$error$message))
+}
 
-# convert response to a data frame
+# collecting data as a data frame
 allowanceComplianceData <- fromJSON(rawToChar(res$content))
 
 # print head of dataframe
@@ -57,23 +80,29 @@ print(head(allowanceComplianceData))
 print(allowanceComplianceData[!is.na(allowanceComplianceData$excessEmissions),])
 
 ####### Account mgmt API #######
+# This is an example of how to use the account mgmt API to get account holdings and allowance compliance data.
 
-## Example 1
+### Account Holdings ###
 
 # allowance holdings endpoint url
 accountHoldingsPageUrl <- paste0(apiUrlBase,"/account-mgmt/allowance-holdings?API_KEY=",apiKEY)
 
-# define query parameters
+# api parameters for the account holdings endpoint
 query <- list(accountType=paste0(c("Facility Account","General Account"), collapse = '|'),
               programCodeInfo="CSOSG3",
               stateCode="OH",
               page=1,
               perPage=10)
 
-# API GET request
+# making get request
 res = GET(accountHoldingsPageUrl, query = query)
+# printing the response error message if the response is not successful
+if (res$status_code > 399){
+  errorFrame <- fromJSON(rawToChar(res$content))
+  stop(paste("Error Code:",errorFrame$error$code,errorFrame$error$message))
+}
 
-# There's useful information in the response headers - here's a few
+# Note: the x-total-count header is the total number of records in the query (not influenced by paging).
 totalRowsAvailableForQuery <- res$headers$`x-total-count`
 print(totalRowsAvailableForQuery)
 
@@ -84,21 +113,26 @@ print(fieldMapping)
 accountHoldingsPageData <- fromJSON(rawToChar(res$content))
 print(head(accountHoldingsPageData))
 
-## Example 2
+### Allowance Compliance ###
 
 # allowance compliance endpoint url
 allowanceCompliancePageUrl <- paste0(apiUrlBase,"/account-mgmt/allowance-compliance?API_KEY=",apiKEY)
 
-# define query parameters
+# api parameters for the allowance compliance endpoint
 query <- list(programCodeInfo="ARP",
               year=paste0(seq(2010,2021), collapse = '|'),
               page=1,
               perPage=10)
 
-# API GET request
+# making get request
 res = GET(allowanceCompliancePageUrl, query = query)
+# printing the response error message if the response is not successful
+if (res$status_code > 399){
+  errorFrame <- fromJSON(rawToChar(res$content))
+  stop(paste("Error Code:",errorFrame$error$code,errorFrame$error$message))
+}
 
-# There's useful information in the response headers - here's a few
+# Note: the x-total-count header is the total number of records in the query (not infuenced by paging).
 totalRowsAvailableForQuery <- res$headers$`x-total-count`
 print(totalRowsAvailableForQuery)
 

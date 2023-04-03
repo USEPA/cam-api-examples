@@ -1,35 +1,56 @@
 import requests
+import sys
+from datetime import datetime
 import pandas as pd
+import warnings
 
-# These are examples of querying annual emissions data.
+#######
+# NOTE: If you are looking to download data in bulk, please see the bulk_data_demo.py file.
+# An example of a bulk requests is downloading all hourly emissions data for more than one month
+#######
 
-####### Streaming services API #######
+# Below are examples of querying hourly and annual emissions data.
 
-# If you have a lot of data to request, use the streaming services API to avoid
-# pagination and much quicker collection of the data you need.
-
+# Set your API key here
 API_KEY = 'YOUR_API_KEY'
 
-# api parameters for the streaming facility/attributes endpoint
+####### Streaming services API #######
+# This is an example of how to use the streaming services API to get hourly emissions data.
+
+# Use this API for continuous data streams and avoiding paging through results.
+
+# api parameters for the streaming emissions/apportioned/hourly endpoint
 parameters = {
     'api_key': API_KEY,
-    'year': 2021,
+    'beginDate': '2021-01-01',
+    'endDate': '2021-01-02',
     'programCodeInfo': 'CSOSG2|CSOSG3',
 }
 
-# making get request using the emissions/apportioned/annual endpoint
-streamingUrl = "https://api.epa.gov/easey/streaming-services/emissions/apportioned/annual"
+date_format = "%Y-%m-%d"
+beginDate = datetime.strptime(parameters['beginDate'], date_format)
+endDate = datetime.strptime(parameters['endDate'], date_format)
+if (endDate - beginDate).days > 31:
+    warnings.warn("The request you're making could be too large for the streaming services API and may result in a bad request. Please consider using the bulk data api endpoint instead. An example can be found in the bulk_data_demo.py file.")
+
+# making get request using the emissions/apportioned/hourly endpoint
+streamingUrl = "https://api.epa.gov/easey/streaming-services/emissions/apportioned/hourly"
 streamingResponse = requests.get(streamingUrl, params=parameters)
 
-# printing useful info from the response
+# printing the response error message if the response is not successful
 print("Status code: "+str(streamingResponse.status_code))
+if (int(streamingResponse.status_code) > 399):
+    sys.exit("Error message: "+streamingResponse.json()['error']['message'])
+
 print("Field Mappings: "+str(streamingResponse.headers['X-Field-Mappings']))
 # collecting data as a data frame
 streamingResponse_df = pd.DataFrame(streamingResponse.json())
 print(streamingResponse_df)
 
 ####### Emissions mgmt API #######
-# This is example shows how to page through results.
+# This is an example of how to use the emissions mgmt API to get annual emissions data.
+
+# Use this API for getting data in pages.
 
 import math
 
@@ -46,10 +67,12 @@ parameters = {
 emissionsUrl = "https://api.epa.gov/easey/emissions-mgmt/emissions/apportioned/annual"
 emissionsResponse = requests.get(emissionsUrl, params=parameters)
 
-# Note: the x-total-count header is the total number of records in the response.
-# You can use this to determine if you need to make another request to get all the records.
-totalCount = emissionsResponse.headers['X-Total-Count']
 print("Status code: "+str(emissionsResponse.status_code))
+if (int(emissionsResponse.status_code) > 399):
+    sys.exit("Error message: "+emissionsResponse.json()['error']['message'])
+
+# Note: the x-total-count header is the total number of records in the query (not influenced by paging).
+totalCount = emissionsResponse.headers['X-Total-Count']
 #print("Field Mappings: "+str(response.headers['X-Field-Mappings']))
 print("Total Count: "+str(totalCount))
 

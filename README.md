@@ -1,7 +1,7 @@
 # EPA's Clean Air Markets (CAM) API Examples
 The purpose of this repo is to provide users examples on how to use the Clean Air Market's (CAM) APIs using Python and R. Users can find documentation of the APIs in the [CAM API Portal](https://www.epa.gov/airmarkets/cam-api-portal).
 
-| :exclamation:  If you are trying to access a lot of data (i.e. a years worth of hourly emissions data for a state) please see the bulk_data_api_demo!   |
+| :exclamation:  If you are trying to access a lot of data (i.e. a years worth of hourly emissions data for a state) please see the bulk_data_api_demo([R](https://github.com/USEPA/cam-api-examples/pull/R/bulk_data_api_demo.R)|[py](https://github.com/USEPA/cam-api-examples/pull/Python/bulk_data_api_demo.py))!   |
 |-----------------------------------------|
 
 ## Background

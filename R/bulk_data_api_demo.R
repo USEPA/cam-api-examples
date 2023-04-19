@@ -12,7 +12,7 @@ apiKEY <- "YOUR_API_KEY"
 
 # change this to the date you want to start downloading files from
 # all files after this date and time will be downloaded
-timeOfLastRun <- strftime("2023-03-01T00:00:00", "%Y-%m-%dT%H:%M:%S")
+timeOfLastRun <- strftime(paste0((Sys.Date()-30),"T00:00:00"), "%Y-%m-%dT%H:%M:%S")
 
 
 # API base url
@@ -35,33 +35,7 @@ if (res$status_code > 399){
 # converting the content from json format to a data frame
 bulkFiles <- fromJSON(rawToChar(res$content))
 
-# cast lastUpdated to strftime
-bulkFiles$lastUpdated <- strftime(bulkFiles$lastUpdated , "%Y-%m-%dT%H:%M:%S")
-
-# reduce to files that are older than the timeOfLastRun value
-newBulkFiles <- bulkFiles[bulkFiles$lastUpdated > timeOfLastRun,]
-
-####### Hourly State Emissions Files #######
-
-# filter by state hourly emissions files
-emissionsFiles <- newBulkFiles[newBulkFiles$metadata$dataType=="Emissions",]
-hourlyEmissionsFiles <- emissionsFiles[emissionsFiles$metadata$dataSubType=="Hourly",]
-stateHourlyEmissionsFiles <- hourlyEmissionsFiles[!is.na(hourlyEmissionsFiles$metadata$stateCode),]
-
-print(stateHourlyEmissionsFiles)
-
-currentDirectory <- getwd()
-dir.create(paste0(currentDirectory,'/data'))
-
-# Read the csvs from source and concatenate them together
-stateHourlyEmissionsData <- data.frame()
-for (i in 1:nrow(stateHourlyEmissionsFiles)){
-  s3Path <- stateHourlyEmissionsFiles[i,c('s3Path')]
-  filename <- stateHourlyEmissionsFiles[i,c('filename')]
-  print(paste0('Full path to file on S3: ',bucketUrlBase,s3Path))
-  GET(paste0(bucketUrlBase,s3Path), write_disk(paste0(currentDirectory,'/data/',filename)))
-  #stateHourlyEmissionsData <- rbind(stateHourlyEmissionsData,read.csv(paste0(bucketUrlBase,s3Path)))
-}
+####### Meta Data #######
 
 # print out unique data sub types in the bulk data files
 print(unique(bulkFiles$metadata$dataType))
@@ -77,4 +51,38 @@ print(na.omit(unique(matsFiles$metadata$stateCode)))
 
 # check if quarterly groupings exist in any of the files
 print(na.omit(unique(matsFiles$metadata$quarter)))
+
+####### Hourly State Emissions Files #######
+
+# cast lastUpdated to strftime
+bulkFiles$lastUpdated <- strftime(bulkFiles$lastUpdated , "%Y-%m-%dT%H:%M:%S")
+
+# reduce to files that are older than the timeOfLastRun value
+newBulkFiles <- bulkFiles[bulkFiles$lastUpdated > timeOfLastRun,]
+
+# filter by state hourly emissions files
+emissionsFiles <- newBulkFiles[newBulkFiles$metadata$dataType=="Emissions",]
+hourlyEmissionsFiles <- emissionsFiles[emissionsFiles$metadata$dataSubType=="Hourly",]
+stateHourlyEmissionsFiles <- hourlyEmissionsFiles[!is.na(hourlyEmissionsFiles$metadata$stateCode),]
+
+print(paste('Number of files to download:',nrow(stateHourlyEmissionsFiles)))
+
+print(paste('Size of files to download:',sum(stateHourlyEmissionsFiles$megaBytes),'MB'))
+
+currentDirectory <- getwd()
+dir.create(paste0(currentDirectory,'/data'))
+
+# Read the csvs from source and concatenate them together and/or download them
+stateHourlyEmissionsData <- data.frame()
+if (nrow(stateHourlyEmissionsFiles) > 1) {
+  for (i in 1:nrow(stateHourlyEmissionsFiles)){
+    s3Path <- stateHourlyEmissionsFiles[i,c('s3Path')]
+    filename <- stateHourlyEmissionsFiles[i,c('filename')]
+    print(paste0('Full path to file on S3: ',bucketUrlBase,s3Path))
+    # use the two lines below to save the csvs or store them in a dataframe
+    #GET(paste0(bucketUrlBase,s3Path), write_disk(paste0(currentDirectory,'/data/',filename)))
+    stateHourlyEmissionsData <- rbind(stateHourlyEmissionsData,read.csv(paste0(bucketUrlBase,s3Path)))
+  }
+}
+
 

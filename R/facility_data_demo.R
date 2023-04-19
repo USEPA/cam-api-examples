@@ -29,7 +29,7 @@ query <- list(year="2020",
               stateCode=paste0(c("IN","MI"), collapse = '|'),
               unitFuelType=paste0(c("Coal","Natural Gas"), collapse = '|'))
 
-if (length(query$year) > 4){
+if (length(unlist(str_split(query$year,'\\|'))) > 1){
   warning("The request you're making could be too large for the streaming services API and may result in a bad request. Please consider using the bulk data api endpoint instead. An example can be found in the bulk_data_demo.py file.")
 }
 

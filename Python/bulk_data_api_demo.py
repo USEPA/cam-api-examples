@@ -2,7 +2,7 @@ import requests
 import json
 import sys
 from datetime import datetime
-import pandas as pd
+from datetime import date
 import os
 
 # The bulk data api allows you to download prepackaged data sets. There are two endpoints for obtaining bulk data.
@@ -20,7 +20,10 @@ parameters = {
 
 # change this to the date you want to start downloading files from
 # all files after this date and time will be downloaded
-timeOfLastDownload = datetime.fromisoformat("2023-01-18T00:00:00.000Z"[:-1] + '+00:00')
+dateToday = date.today()
+month, year = (dateToday.month-1, dateToday.year) if dateToday.month != 1 else (12, dateToday.year-1)
+prevMonth = dateToday.replace(day=1, month=month, year=year)
+timeOfLastDownload = datetime.fromisoformat(str(prevMonth)+"T00:00:00.000Z"[:-1] + '+00:00')
 
 # executing get request
 response = requests.get("https://api.epa.gov/easey/camd-services/bulk-files", params=parameters)
@@ -34,34 +37,7 @@ if (int(response.status_code) > 399):
 resjson = response.content.decode('utf8').replace("'", '"')
 bulkFiles = json.loads(resjson)
 
-####### Hourly Emissions Files #######
-
-# filter by emissions files
-emissionsFiles = [fileObj for fileObj in bulkFiles if (fileObj['metadata']['dataType']=="Emissions")]
-
-# filter by hourly virginia emissions files
-hourlyEmissionsFiles = [fileObj for fileObj in emissionsFiles if (fileObj['metadata']['dataSubType']=="Hourly")]
-virginiaHourlyEmissionsFiles = [fileObj for fileObj in hourlyEmissionsFiles if ('stateCode' in fileObj['metadata'].keys() and fileObj['metadata']['stateCode'] == 'VA')]
-
-datething = datetime.fromisoformat(virginiaHourlyEmissionsFiles[0]['lastUpdated'][:-1] + '+00:00')
-
-# make a data folder if it doesn't exist
-if not os.path.exists('data'):
-    os.makedirs('data')
-
-# initialize data frame
-virginiaHourlyEmissionsData = pd.DataFrame()
-# loop through all files and download them
-for fileObj in virginiaHourlyEmissionsFiles:
-    # if the file was last updated after the last time we downloaded files, download it
-    if (datetime.fromisoformat(fileObj['lastUpdated'][:-1] + '+00:00') > timeOfLastDownload):
-        url = BUCKET_URL_BASE+fileObj['s3Path']
-        print('Full path to file on S3: '+url)
-        # download and save file
-        response = requests.get(url)
-        # save file to disk in the data folder
-        with open('data/'+fileObj['filename'], 'wb') as f:
-            f.write(response.content)
+####### Meta Data #######
 
 # print out unique data types in the bulk data files
 print('Unique data types in the bulk data files:')
@@ -81,3 +57,37 @@ print(set([fileObj['metadata']['stateCode'] for fileObj in matsFiles if ('stateC
 # check if quarterly groupings exist in any of the files
 print('Quarterly groupings in the bulk data files:')
 print(set([fileObj['metadata']['quarter'] for fileObj in matsFiles if ('quarter' in fileObj['metadata'].keys())]))
+
+####### Hourly Emissions Files #######
+
+# filter by emissions files
+emissionsFiles = [fileObj for fileObj in bulkFiles if (fileObj['metadata']['dataType']=="Emissions")]
+
+# filter by hourly virginia emissions files
+hourlyEmissionsFiles = [fileObj for fileObj in emissionsFiles if (fileObj['metadata']['dataSubType']=="Hourly")]
+virginiaHourlyEmissionsFiles = [fileObj for fileObj in hourlyEmissionsFiles if ('stateCode' in fileObj['metadata'].keys() and fileObj['metadata']['stateCode'] == 'VA')]
+
+# filter files since last download (timeOfLastDownload)
+filesToDownload = [fileObj for fileObj in virginiaHourlyEmissionsFiles if datetime.fromisoformat(fileObj['lastUpdated'][:-1] + '+00:00') > timeOfLastDownload]
+print('Number of files to download: '+str(len(filesToDownload)))
+
+# print the size of all files to download
+downloadMB = sum(int(fileObj['megaBytes']) for fileObj in filesToDownload)
+print('Total size of files to download: '+str(downloadMB)+' MB')
+
+# make a data folder if it doesn't exist
+if not os.path.exists('data'):
+    os.makedirs('data')
+
+if len(filesToDownload) > 0:
+    # loop through all files and download them
+    for fileObj in filesToDownload:
+        url = BUCKET_URL_BASE+fileObj['s3Path']
+        print('Full path to file on S3: '+url)
+        # download and save file
+        response = requests.get(url)
+        # save file to disk in the data folder
+        with open('data/'+fileObj['filename'], 'wb') as f:
+            f.write(response.content)
+else:
+    print('No files to download')

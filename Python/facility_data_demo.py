@@ -26,7 +26,7 @@ parameters = {
     'unitFuelType': 'Coal|Natural Gas'
 }
 
-if len(parameters['year']) > 4:
+if len(parameters['year'].split("|")) > 1: 
     warnings.warn("The request you're making could be too large for the streaming services API and may result in a bad request. Please consider using the bulk data api endpoint instead. An example can be found in the bulk_data_demo.py file.")
 
 # making get request using the facilities/attributes endpoint

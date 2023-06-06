@@ -1,6 +1,9 @@
 # EPA's Clean Air Markets (CAM) API Examples
 The purpose of this repo is to provide users examples on how to use the Clean Air Market's (CAM) APIs using Python and R. Users can find documentation of the APIs in the [CAM API Portal](https://www.epa.gov/airmarkets/cam-api-portal).
 
+| :exclamation:  If you are trying to access a lot of data (i.e. a years worth of hourly emissions data) please see the bulk_data_api_demo ([R](https://github.com/USEPA/cam-api-examples/pull/R/bulk_data_api_demo.R) or [py](https://github.com/USEPA/cam-api-examples/pull/Python/bulk_data_api_demo.py))!   |
+|-----------------------------------------|
+
 ## Background
 ### About EPA's Clean Air Markets
 To learn more about the programs associated with the data through these APIs, as well as other information, visit the [Clean Air Markets Division (CAMD) homepage](https://www.epa.gov/airmarkets).
@@ -21,7 +24,7 @@ Before executing the scripts, install the following packages.
 <br/><br/>
 
 ### Python/account_data_demo.py
-The script retrieves account holdings and compliance data by using the streaming-services and account-mgmt APIs. The script also prints out useful data from the response headers too.
+The script retrieves account holdings and allowance compliance data by using the streaming-services and account-mgmt APIs. The script also prints out useful data from the response headers too.
 
 <ol>
 <li>In the file, insert your API key at:
@@ -34,12 +37,13 @@ The script retrieves account holdings and compliance data by using the streaming
 `cd Python/`<br>
 `python account_data_demo.py`
 </li>
-<li>If successful, you will see a response, `Status code: 200` and printed tables of data.</li>
+<li>If successful, you will see a response, `Status code: 200` and the script will continue</li>
+<li>If not succesful, the script has a catch and prints out an error message as to why the API call failed</li>
 </ol>
 <br/>
 
 ### Python/emissions_data_demo.py
-The script retrieves annual emissions attribute data by using the streaming-services and emission-mgmt APIs. The script also prints out useful data from the response headers too.
+The script retrieves hourly emissions data by using the streaming-services API and annual emissions data using the emission-mgmt API. The script also prints out useful data from the response headers too.
 
 <ol>
 <li>In the file, insert your API key at:
@@ -52,7 +56,8 @@ The script retrieves annual emissions attribute data by using the streaming-serv
 `cd Python/`<br>
 `python emissions_data_demo.py`
 </li>
-<li>If successful, you will see a response, `Status code: 200` and printed tables of data.</li>
+<li>If successful, you will see a response, `Status code: 200` and the script will continue</li>
+<li>If not succesful, the script has a catch and prints out an error message as to why the API call failed</li>
 </ol>
 <br/>
 
@@ -70,12 +75,13 @@ The script retrieves facility attribute data by using the streaming-services and
 `cd Python/`<br>
 `python facility_api_demo.py`</br>
 </li>
-<li>If successful, you will see a response, `Status code: 200` and printed tables of data.</li>
+<li>If successful, you will see a response, `Status code: 200` and the script will continue</li>
+<li>If not succesful, the script has a catch and prints out an error message as to why the API call failed</li>
 </ol>
 <br/>
 
 ### Python/bulk_data_api_demo.py
-The script retrieves daily emissions files by the quarter of 2021 using the camd-services API. The script then concatenates the files to make a single data frame. Additionally, the script will also download XML files to a local directory.
+The script retrieves hourly emissions files for virginia using the camd-services API and saves the files in a directory. Additionally, the script will print out other data types and useful things about the bulk files metadata.
 
 <ol>
 <li>In the file, insert your API key at: `API_KEY = 'YOUR_API_KEY'`</li>
@@ -84,7 +90,8 @@ The script retrieves daily emissions files by the quarter of 2021 using the camd
 `cd Python/`<br>
 `python bulk_data_api_demo.py`
 </li>
-<li>If successful, you will see a response, `Status code: 200`.</li>
+<li>If successful, you will see a response, `Status code: 200` and the script will continue</li>
+<li>If not succesful, the script has a catch and prints out an error message as to why the API call failed</li>
 </ol>
 
 <br/><br/>
@@ -102,43 +109,52 @@ Before executing the scripts, install the following packages.
 <br/><br/>
 
 ### R/account_data_demo.R
-
-Insert your API key at
-
-`apiKEY <- "YOUR_API_KEY"`
-
 The script retrieves account holdings and compliance data by using the streaming-services and account-mgmt APIs. The script also prints out useful data from the response headers too.
 
-Use RStudio to run the script.
+<ol>
+<li>In the file, insert your API key at: `apiKEY = 'YOUR_API_KEY'`</li>
+<li>To execute the script run in RStudio or in your terminal:<br>
 
+`cd R/`<br>
+`RScript bulk_data_api_demo.R`
+</li>
+<li>If successful, you will see a response, `Status code: 200`</li>
+<li>If not succesful, the script has a catch and prints out an error message as to why the API call failed</li>
+</ol>
 <br/>
 
 ### R/emissions_data_demo.R
+The script retrieves hourly by using the streaming-services and annual emissionsdata by using the emission-mgmt APIs. The script also prints out useful data from the response headers too.
 
-Insert your API key at
+<ol>
+<li>In the file, insert your API key at: `apiKEY = 'YOUR_API_KEY'`</li>
+<li>To execute the script run in RStudio or in your terminal:<br>
 
-`apiKEY <- "YOUR_API_KEY"`
-
-The script retrieves annual emissions attribute data by using the streaming-services and emission-mgmt APIs. The script also prints out useful data from the response headers too.
-
-Use RStudio to run the script.
-
+`cd R/`<br>
+`RScript bulk_data_api_demo.R`
+</li>
+<li>If successful, you will see a response, `Status code: 200`</li>
+<li>If not succesful, the script has a catch and prints out an error message as to why the API call failed</li>
+</ol>
 <br/>
 
 ### R/facility_data_demo.R
+The script retrieves facility attribute data by using the streaming-services and facilities-mgmt APIs. The script also prints out useful data from the response headers too.
 
-Insert your API key at
+<ol>
+<li>In the file, insert your API key at: `apiKEY = 'YOUR_API_KEY'`</li>
+<li>To execute the script run in RStudio or in your terminal:<br>
 
-`apiKEY <- "YOUR_API_KEY"`
-
-The script retrieves annual emissions attribute data by using the streaming-services and facilities-mgmt APIs. The script also prints out useful data from the response headers too.
-
-Use RStudio to run the script.
-
+`cd R/`<br>
+`RScript bulk_data_api_demo.R`
+</li>
+<li>If successful, you will see a response, `Status code: 200`</li>
+<li>If not succesful, the script has a catch and prints out an error message as to why the API call failed</li>
+</ol>
 <br/>
 
 ### R/bulk_data_api_demo.R
-The script retrieves daily emissions files by the quarter of 2021 using the camd-services API. The script then concatenates the files to make a single data frame. Additionally, the script will also download XML files to a local directory.
+The script retrieves hourly emissions files by using the camd-services API and saves the files in a directory. Additionally, the script will print out other data types and useful things about the bulk files metadata.
 
 <ol>
 <li>In the file, insert your API key at: `apiKEY = 'YOUR_API_KEY'`</li>
@@ -148,6 +164,7 @@ The script retrieves daily emissions files by the quarter of 2021 using the camd
 `RScript bulk_data_api_demo.R`
 </li>
 <li>If successful, you will see a response, `Status code: 200`.</li>
+<li>If not succesful, the script has a catch and prints out an error message as to why the API call failed</li>
 </ol>
 <br/><br/>
 

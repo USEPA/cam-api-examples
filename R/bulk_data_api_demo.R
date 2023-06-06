@@ -3,83 +3,86 @@ library(htmltools)
 library(jsonlite)
 library(data.table)
 
-# API info
-apiUrlBase <- "https://api.epa.gov/easey"
+# The bulk data api allows you to download prepackaged data sets. There are two endpoints for obtaining bulk data.
+# The first is the /bulk-files endpoint which returns metadata about files. This metadata includes the path to the
+# file.  The second is the /easey/bulk-files endpoint which along with the path, returns the actual file.
+
+# Set your API key here
 apiKEY <- "YOUR_API_KEY"
 
-# base url to S3 bucket
+# change this to the date you want to start downloading files from
+# all files after this date and time will be downloaded
+timeOfLastRun <- strftime(paste0((Sys.Date()-30),"T00:00:00"), "%Y-%m-%dT%H:%M:%S")
+
+
+# API base url
+apiUrlBase <- "https://api.epa.gov/easey"
+
+# S3 bucket url base + s3Path (in get request) = the full path to the files
 bucketUrlBase <- 'https://api.epa.gov/easey/bulk-files/'
 
 # CAMD Administrative Services API url to bulk data files endpoint
 servicesUrl <- paste0(apiUrlBase,"/camd-services/bulk-files?API_KEY=",apiKEY)
 
-# API GET request
+# executing get request
 res = GET(servicesUrl)
+# printing the response error message if the response is not successful
+if (res$status_code > 399){
+  errorFrame <- fromJSON(rawToChar(res$content))
+  stop(paste("Error Code:",errorFrame$error$code,errorFrame$error$message))
+}
 
-# convert response to a data frame
+# converting the content from json format to a data frame
 bulkFiles <- fromJSON(rawToChar(res$content))
-# if you would like all file names and meta information in a csv, uncomment
-# the write function below.
-#write.csv(bulkFiles, paste0(getwd(),"/available-bulk-files.csv"), row.names = FALSE)
 
-####### Compliance Files #######
+####### Meta Data #######
 
-# filter by compliance data type and CSAPR programs
-complianceFiles <- bulkFiles[bulkFiles$metadata$dataType=="Compliance",]
-csaprComplianceFiles <- complianceFiles[complianceFiles$metadata$programCode %like% 'CS',]
-print(csaprComplianceFiles)
+# print out unique data sub types in the bulk data files
+print(unique(bulkFiles$metadata$dataType))
 
-# Read the csvs from source and concatenate them together
-complianceData <- data.frame()
-for (s3Path in csaprComplianceFiles$s3Path){
-  print(paste0('Full path to file on S3: ',bucketUrlBase,s3Path))
-  complianceData <- rbind(complianceData,read.csv(paste0(bucketUrlBase,s3Path)))
-}
+# select Mercury and Air Toxics Emissions (MATS) files
+matsFiles = bulkFiles[bulkFiles$metadata$dataType == "Mercury and Air Toxics Emissions (MATS)",]
 
-####### Emission Files #######
+# print out unique data sub types in the bulk data
+print(unique(matsFiles$metadata$dataSubType))
 
-# reduce down to get the first two quarter files of daily emissions for 2020
-emissionFiles <- bulkFiles[bulkFiles$metadata$dataType=="Emissions",]
-dailyEmissionFiles <- emissionFiles[emissionFiles$metadata$dataSubType=="Daily",]
-dailyttEmissionFiles <- dailyEmissionFiles[dailyEmissionFiles$metadata$year=="2020",]
-dailyttQEmissionFiles <- dailyttEmissionFiles[dailyttEmissionFiles$metadata$quarter %in% c(1,2),]
-print(dailyttQEmissionFiles)
+# check if state groupings exist in any of the files
+print(na.omit(unique(matsFiles$metadata$stateCode)))
 
-# Read the csvs from source and concatenate them together
-emissionData <- data.frame()
-for (s3Path in dailyttQEmissionFiles$s3Path){
-  print(paste0('Full path to file on S3: ',bucketUrlBase,s3Path))
-  emissionData <- rbind(emissionData,read.csv(paste0(bucketUrlBase,s3Path)))
-}
+# check if quarterly groupings exist in any of the files
+print(na.omit(unique(matsFiles$metadata$quarter)))
 
-####### XML Files #######
+####### Hourly State Emissions Files #######
 
-library(utils)
+# cast lastUpdated to strftime
+bulkFiles$lastUpdated <- strftime(bulkFiles$lastUpdated , "%Y-%m-%dT%H:%M:%S")
 
-# reduce down to get the XML files for Alabama
-xmlFiles <- bulkFiles[bulkFiles$metadata$dataType=="XML",]
-mpXmlEdrFiles <- xmlFiles[xmlFiles$metadata$dataSubType=="Monitoring Plan",]
-print(mpXmlEdrFiles)
+# reduce to files that are older than the timeOfLastRun value
+newBulkFiles <- bulkFiles[bulkFiles$lastUpdated > timeOfLastRun,]
 
-# get Alabama XML files
-alabamaXmlFiles <- mpXmlEdrFiles[mpXmlEdrFiles$metadata$stateCode =="AL",]
+# filter by state hourly emissions files
+emissionsFiles <- newBulkFiles[newBulkFiles$metadata$dataType=="Emissions",]
+hourlyEmissionsFiles <- emissionsFiles[emissionsFiles$metadata$dataSubType=="Hourly",]
+stateHourlyEmissionsFiles <- hourlyEmissionsFiles[!is.na(hourlyEmissionsFiles$metadata$stateCode),]
 
-# make directory for XML files
+print(paste('Number of files to download:',nrow(stateHourlyEmissionsFiles)))
+
+print(paste('Size of files to download:',sum(stateHourlyEmissionsFiles$megaBytes),'MB'))
+
 currentDirectory <- getwd()
-alabamaDirPath <- paste0(currentDirectory,'/AlabamaXML')
-dir.create(alabamaDirPath)
+dir.create(paste0(currentDirectory,'/data'))
 
-# Download XML files and place them in alabamaDirPath directory
-for (i in 1:nrow(alabamaXmlFiles)){
-  s3Path <- alabamaXmlFiles$s3Path[i]
-  filename <- alabamaXmlFiles$filename[i]
-  print(paste0('Full path to file on S3: ',bucketUrlBase,s3Path))
-  zipFile <- file.path(alabamaDirPath,filename)
-  download.file(paste0(bucketUrlBase,s3Path),zipFile)
-  unzip(zipFile, exdir=alabamaDirPath)
+# Read the csvs from source and concatenate them together and/or download them
+stateHourlyEmissionsData <- data.frame()
+if (nrow(stateHourlyEmissionsFiles) > 1) {
+  for (i in 1:nrow(stateHourlyEmissionsFiles)){
+    s3Path <- stateHourlyEmissionsFiles[i,c('s3Path')]
+    filename <- stateHourlyEmissionsFiles[i,c('filename')]
+    print(paste0('Full path to file on S3: ',bucketUrlBase,s3Path))
+    # use the two lines below to save the csvs or store them in a dataframe
+    #GET(paste0(bucketUrlBase,s3Path), write_disk(paste0(currentDirectory,'/data/',filename)))
+    stateHourlyEmissionsData <- rbind(stateHourlyEmissionsData,read.csv(paste0(bucketUrlBase,s3Path)))
+  }
 }
-
-
-
 
 

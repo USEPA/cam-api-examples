@@ -1,14 +1,15 @@
-import sys
-import io
 import requests
-import pandas as pd
 import json
+import sys
+from datetime import datetime
+from datetime import date
 import os
 
-# The bulk data api allows you to download prepackaged data sets. There are two endpoints for obtainging bulk data.
-# The first is the /bulk-files endpoint which returns a metadata about files. This metadata includes the path to the
+# The bulk data api allows you to download prepackaged data sets. There are two endpoints for obtaining bulk data.
+# The first is the /bulk-files endpoint which returns metadata about files. This metadata includes the path to the
 # file.  The second is the /easey/bulk-files endpoint which along with the path, returns the actual file.
 
+# Set your API key here
 API_KEY = 'YOUR_API_KEY'
 # S3 bucket url base + s3Path (in get request) = the full path to the files
 BUCKET_URL_BASE = 'https://api.epa.gov/easey/bulk-files/'
@@ -17,81 +18,76 @@ parameters = {
     'api_key': API_KEY
 }
 
+# change this to the date you want to start downloading files from
+# all files after this date and time will be downloaded
+dateToday = date.today()
+month, year = (dateToday.month-1, dateToday.year) if dateToday.month != 1 else (12, dateToday.year-1)
+prevMonth = dateToday.replace(day=1, month=month, year=year)
+timeOfLastDownload = datetime.fromisoformat(str(prevMonth)+"T00:00:00.000Z"[:-1] + '+00:00')
+
 # executing get request
 response = requests.get("https://api.epa.gov/easey/camd-services/bulk-files", params=parameters)
 
-# printing status code
+# printing the response error message if the response is not successful
 print("Status code: "+str(response.status_code))
+if (int(response.status_code) > 399):
+    sys.exit("Error message: "+response.json()['error']['message'])
 
 # converting the content from json format to a data frame
 resjson = response.content.decode('utf8').replace("'", '"')
-data = json.loads(resjson)
-s = json.dumps(data, indent=4)
-jsonread = pd.read_json(s)
-pddf = pd.DataFrame(jsonread)
-bulkFiles = pd.concat([pddf.drop(['metadata'], axis=1), pddf['metadata'].apply(pd.Series)], axis=1)
+bulkFiles = json.loads(resjson)
 
-####### Compliance Files #######
-# filter by csapr compliance files
-csaprComplianceFiles = bulkFiles[(bulkFiles['dataType']=="Compliance") & (bulkFiles['programCode'].str.contains('CS'))]
-#print(csaprComplianceFiles)
+####### Meta Data #######
 
-# initialize data frame
-complianceData = pd.DataFrame()
-for s3Path in csaprComplianceFiles['s3Path']:
-    url = BUCKET_URL_BASE+s3Path
-    print('Full path to file on S3: '+url)
-    # converting response to data frame and adding rows to dailyEmissions
-    res = requests.get(url).content
-    df = pd.read_csv(io.StringIO(res.decode('utf-8')))
-    complianceData = pd.concat([complianceData,df])
+# print out unique data types in the bulk data files
+print('Unique data types in the bulk data files:')
+print(set([fileObj['metadata']['dataType'] for fileObj in bulkFiles]))
 
-#print(complianceData.head())
-print("Number of records for CSAPR Compliance: "+str(complianceData.shape[0]))
+# select Mercury and Air Toxics Emissions (MATS) files
+matsFiles = [fileObj for fileObj in bulkFiles if (fileObj['metadata']['dataType']=="Mercury and Air Toxics Emissions (MATS)")]
 
-####### Emission Files #######
-# filter by daily emission by the quarter for 2020
-quarterDailyEmissionFiles = bulkFiles[bulkFiles['filename'].str.contains('emissions-daily-2020-q')]
+# print out unique data sub types in the bulk data files
+print('Unique data sub types in the bulk data files:')
+print(set([fileObj['metadata']['dataSubType'] for fileObj in matsFiles]))
 
-# initialize data frame
-dailyEmissions = pd.DataFrame()
+# check if state groupings exist in any of the files
+print('State groupings in the bulk data files:')
+print(set([fileObj['metadata']['stateCode'] for fileObj in matsFiles if ('stateCode' in fileObj['metadata'].keys())]))
 
-# iterate over s3 paths for each file and add to dailyEmissions
-for s3Path in quarterDailyEmissionFiles['s3Path']:
-    url = BUCKET_URL_BASE+s3Path
-    print('Full path to file on S3: '+url)
-    # converting response to data frame and adding rows to dailyEmissions
-    res = requests.get(url).content
-    df = pd.read_csv(io.StringIO(res.decode('utf-8')))
-    dailyEmissions = pd.concat([dailyEmissions,df])
+# check if quarterly groupings exist in any of the files
+print('Quarterly groupings in the bulk data files:')
+print(set([fileObj['metadata']['quarter'] for fileObj in matsFiles if ('quarter' in fileObj['metadata'].keys())]))
 
-# print out head and number of rows
-#print(dailyEmissions.head())
-print("Number of records for 2020 daily emissions: "+str(dailyEmissions.shape[0]))
+####### Hourly Emissions Files #######
 
-####### XML Files #######
-import zipfile
-# reduce down to get the XML files for Alabama
-mpXmlEdrFiles = bulkFiles[(bulkFiles['dataType']=="XML") & (bulkFiles['dataSubType']=="Monitoring Plan")]
+# filter by emissions files
+emissionsFiles = [fileObj for fileObj in bulkFiles if (fileObj['metadata']['dataType']=="Emissions")]
 
-# get Alabama XML files
-alabamaXmlFiles = mpXmlEdrFiles[mpXmlEdrFiles['stateCode'] =="AL"]
-#print(alabamaXmlFiles)
+# filter by hourly virginia emissions files
+hourlyEmissionsFiles = [fileObj for fileObj in emissionsFiles if (fileObj['metadata']['dataSubType']=="Hourly")]
+virginiaHourlyEmissionsFiles = [fileObj for fileObj in hourlyEmissionsFiles if ('stateCode' in fileObj['metadata'].keys() and fileObj['metadata']['stateCode'] == 'VA')]
 
-# make directory for XML files
-currentDirectory = os.getcwd()
-alabamaDirPath = os.path.join(currentDirectory,'AlabamaXML')
-if not os.path.exists(alabamaDirPath):
-    os.mkdir(alabamaDirPath)
+# filter files since last download (timeOfLastDownload)
+filesToDownload = [fileObj for fileObj in virginiaHourlyEmissionsFiles if datetime.fromisoformat(fileObj['lastUpdated'][:-1] + '+00:00') > timeOfLastDownload]
+print('Number of files to download: '+str(len(filesToDownload)))
 
-# Download XML files and place them in alabamaDirPath directory
-for index, row in alabamaXmlFiles.iterrows():
-    s3Path = row['s3Path']
-    filename = row['filename']
-    url = os.path.join(BUCKET_URL_BASE,s3Path)
-    print('Full path to file on S3: '+url)
-    zipFilePath = os.path.join(alabamaDirPath,filename)
-    response = requests.get(url)
-    open(zipFilePath, "wb").write(response.content)
-    with zipfile.ZipFile(zipFilePath, 'r') as zip_ref:
-        zip_ref.extractall(alabamaDirPath)
+# print the size of all files to download
+downloadMB = sum(int(fileObj['megaBytes']) for fileObj in filesToDownload)
+print('Total size of files to download: '+str(downloadMB)+' MB')
+
+# make a data folder if it doesn't exist
+if not os.path.exists('data'):
+    os.makedirs('data')
+
+if len(filesToDownload) > 0:
+    # loop through all files and download them
+    for fileObj in filesToDownload:
+        url = BUCKET_URL_BASE+fileObj['s3Path']
+        print('Full path to file on S3: '+url)
+        # download and save file
+        response = requests.get(url)
+        # save file to disk in the data folder
+        with open('data/'+fileObj['filename'], 'wb') as f:
+            f.write(response.content)
+else:
+    print('No files to download')

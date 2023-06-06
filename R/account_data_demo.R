@@ -1,6 +1,7 @@
 library(httr)
 library(htmltools)
 library(jsonlite)
+library(dplyr)
 
 #######
 # NOTE: If you are looking to download data in bulk, please see the bulk_data_demo.py file.

@@ -16,9 +16,13 @@ loading...
         "method": "GET",
       });
     const data = await response.json();
+    console.log("first");
+    console.log(data);
     return data;
   }
   const data = getMonitoringPlanConfigData();
+  console.log("second");
+  console.log(data);
   const elem = document.getElementById("monitoringPlanConfigResponse");
   elem.innerHTML = JSON.stringify(data, null, 2)
 </script>

@@ -84,7 +84,7 @@
     const monPlanId = monPlanData[0].id;
     document.getElementById("monitoringPlanId").innerHTML = monPlanId;
     
-    const emissionsExportResponse = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/configurations?monitorPlanId='+monPlanId+'&year=2022&quarter=4,
+    const emissionsExportResponse = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/configurations?monitorPlanId='+monPlanId+'&year=2022&quarter=4',
       {
         headers: {
           "x-api-key": "DEMO_KEY"

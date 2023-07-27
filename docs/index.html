@@ -38,6 +38,6 @@
     const data = await response.json();
     const elem = document.getElementById("monitoringPlanConfigResponse");
     elem.innerHTML = '<code class="language-json">'+JSON.stringify(data, null, 4);+'</code>'
-    return data;
+    console.log(data[0].id);
   })();
 </script>

@@ -6,7 +6,7 @@ loading...
 
 
 <script>
-  async function getMonitoringPlanConfigData() {
+  (async () => {
     const response = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/configurations?orisCodes=3',
       {
         headers: {
@@ -16,13 +16,8 @@ loading...
         "method": "GET",
       });
     const data = await response.json();
-    console.log("first");
-    console.log(data);
+    const elem = document.getElementById("monitoringPlanConfigResponse");
+    elem.innerHTML = JSON.stringify(data, null, 2)
     return data;
-  }
-  const data = getMonitoringPlanConfigData();
-  console.log("second");
-  console.log(data);
-  const elem = document.getElementById("monitoringPlanConfigResponse");
-  elem.innerHTML = JSON.stringify(data, null, 2)
+  })();
 </script>

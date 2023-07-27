@@ -1,6 +1,8 @@
 <h1>Hello world</h1>
 <p>Below are some examples of how the ECMPS Beta API endpoints could be used to find useful information you may be looking for.</p>
-<p>loading...</p>
+<div id="monitoringPlanConfigResponse" style="border:1px solid #ccc;overflow:auto;">
+loading...
+</div>
 
 
 <script>
@@ -14,7 +16,9 @@
         "method": "GET",
       });
     const data = await response.json();
-    console.log(data);
+    return data;
   }
-  getMonitoringPlanConfigData()
+  const data = getMonitoringPlanConfigData();
+  const elem = document.getElementById("monitoringPlanConfigResponse");
+  elem.innerHTML = JSON.stringify(data, null, 2)
 </script>

@@ -32,6 +32,8 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
         with:
           source: ./docs/
           destination: ./_site

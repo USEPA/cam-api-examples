@@ -84,8 +84,7 @@
                 "referrer": "https://usepa.github.io/",
                 "method": "GET",
               });
-            const data = await response.json();</code>
-        </pre>
+            const data = await response.json();</code></pre>
         
         <p>Below is the resonse.</p>
         
@@ -104,7 +103,7 @@
     const monPlanConfigResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/configurations?orisCodes=3',
       {
         headers: {
-          "x-api-key": "DEMO_KEY"
+          "x-api-key": console.log(process.env.API_KEY);
         },
         "referrer": "https://usepa.github.io/",
         "method": "GET",

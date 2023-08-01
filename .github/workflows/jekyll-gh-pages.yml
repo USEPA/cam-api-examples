@@ -36,7 +36,7 @@ jobs:
           source: ./docs/
           destination: ./_site
       - name: Build Webpack
-        run: cd .\docs\; npm install; npx gulp compile; npx gulp init;
+        run: cd npm install; npx gulp compile; npx gulp init;
         env:
           API_KEY: ${{ secrets.API_KEY }}
       - name: Upload artifact

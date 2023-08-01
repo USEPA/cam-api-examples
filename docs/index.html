@@ -83,6 +83,7 @@
 
 <script>
   (async () => {
+    var API_KEY = process.env.API_KEY;
     console.log(API_KEY);
     const monPlanConfigResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/configurations?orisCodes=3',
       {

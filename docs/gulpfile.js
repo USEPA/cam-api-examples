@@ -28,4 +28,4 @@ exports.compile = uswds.compile;
 exports.watch = uswds.watch;
 
 // get api key from github secrets
-const API_KEY = process.env.API_KEY;
+exports.API_KEY = process.env.API_KEY;

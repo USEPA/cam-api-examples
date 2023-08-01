@@ -26,3 +26,4 @@ uswds.paths.dist.theme = './sass/uswds';
 exports.init = uswds.init;
 exports.compile = uswds.compile;
 exports.watch = uswds.watch;
+exports.API_KEY = process.env.API_KEY;

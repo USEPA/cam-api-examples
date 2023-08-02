@@ -1,7 +1,10 @@
 # dependencies
-/docs/dist
+/docs/dist/assets
+/docs/dist/sass
+/docs/dist/main.js
+/docs/dist/main.js.map
+/docs/dist/main.js.LICENSE.txt
 /docs/node_modules
 /docs/assets
 /docs/sass
 /docs/.env
-/docs/package-lock.json

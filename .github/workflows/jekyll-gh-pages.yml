@@ -36,7 +36,7 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       - name: Set up dependencies
-        run: cd docs; npm install; npx gulp compile; npx gulp init;
+        run: cd docs; npm install; npx gulp compile; npx gulp init; npm run build;
         env:
           API_KEY: ${{ secrets.API_KEY }}
       - name: Build with Jekyll

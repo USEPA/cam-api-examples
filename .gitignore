@@ -1,4 +1,7 @@
 # dependencies
+/docs/dist
 /docs/node_modules
 /docs/assets
 /docs/sass
+/docs/.env
+/docs/package-lock.json

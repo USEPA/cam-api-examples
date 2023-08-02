@@ -42,7 +42,7 @@ jobs:
           echo API_KEY=${{ secrets.API_KEY }} >> .env
           cat .env
       - name: Set up dependencies
-        run: npm install; npx gulp compile; npx gulp init; npm run build;
+        run: cd docs; npm install; npx gulp compile; npx gulp init; npm run build;
         env:
           API_KEY: ${{ secrets.API_KEY }}
       - name: Build with Jekyll

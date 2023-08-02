@@ -43,8 +43,6 @@ jobs:
           cat .env
       - name: Set up dependencies
         run: cd docs; npm install; npx gulp compile; npx gulp init; npm run build;
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:

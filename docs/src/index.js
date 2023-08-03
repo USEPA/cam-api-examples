@@ -14,7 +14,7 @@ console.log(process.env.API_KEY);
   const monPlanData = await monPlanConfigResponse.json();
   const monPlanElem = document.getElementById("monitoringPlanConfigResponse");
   monPlanElem.innerHTML = '<code class="language-json">'+JSON.stringify(monPlanData, null, 4);+'</code>'
-  const monPlanId = monPlanData[0].id;
+  const monPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';
   document.getElementById("monitoringPlanId").innerHTML = monPlanId;
   
   const emissionsExportResponse = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+monPlanId+'&year=2022&quarter=4',

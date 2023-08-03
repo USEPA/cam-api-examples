@@ -29,7 +29,7 @@
   const emissionsExportElem = document.getElementById("emissions-export-response");
   emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 
-  const locId = monPlanId[0].id;
+  const locId = monPlanId.locations[0].id;
   document.getElementById("location-attributes-url").innerHTML = 'https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+locId+'attributes';
   
   const locationAttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+locId+'attributes',

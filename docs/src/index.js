@@ -1,5 +1,4 @@
 
-console.log(process.env.API_KEY);
 
 (async () => {
   var API_KEY = process.env.API_KEY;
@@ -21,7 +20,7 @@ console.log(process.env.API_KEY);
   const emissionsExportResponse = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+monPlanId+'&year=2022&quarter=4',
     {
       headers: {
-        "x-api-key": "DEMO_KEY"
+        "x-api-key": process.env.API_KEY
       },
       referrerPolicy: "no-referrer",
       "method": "GET",
@@ -29,4 +28,19 @@ console.log(process.env.API_KEY);
   const emissionsExportData = await emissionsExportResponse.json();
   const emissionsExportElem = document.getElementById("emissions-export-response");
   emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
+
+  const locId = monPlanId[0].id;
+  document.getElementById("location-attributes-url").innerHTML = 'https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+locId+'attributes';
+  
+  const locationAttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+locId+'attributes',
+    {
+      headers: {
+        "x-api-key": process.env.API_KEY
+      },
+      referrerPolicy: "no-referrer",
+      "method": "GET",
+    });
+  const locationAttributeData = await locationAttributeResponse.json();
+  const locationAttributeElem = document.getElementById("location-attributes-response");
+  locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
 })();

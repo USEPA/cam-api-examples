@@ -29,7 +29,11 @@
     <main>
       <div class="margin-5">
         <h1>Clean Air Markets ECMPS Beta API Examples</h1>
-        <p>Below are some examples of how the ECMPS Beta API endpoints could be used to find useful information you may be looking for.</p>
+        <p>Below are some examples of how the ECMPS Beta API endpoints could be used to find useful information you may be looking for.
+            For the examples below, you only need an API key. If you do not have an API key, you can <a href="https://www.epa.gov/power-sector/cam-api-portal#/api-key-signup">request one here</a>.
+            However, there are endpoints that require a token as well. Generally the endpoints that require a token 
+            have the word "workspace" in the endpoint name.
+        </p>
         
         <ol class="usa-process-list">
             <li class="usa-process-list__item" style="max-width: none;">
@@ -56,13 +60,13 @@ const data = await response.json();</code></pre>
                 </div>
             </li>
             <li class="usa-process-list__item" style="max-width: none;">
-                <h4 class="usa-process-list__heading">Chose a monitoring plan id to get emissions exports</h4>
+                <h4 class="usa-process-list__heading">Use a monitoring plan id</h4>
                 <p>The first "Id" of each object in the response is the unique identifier (Id) of a monitoring configuration record. You will see this as parameters 
                     to use in other endpoints (named: monitorPlanId, monPlanIds or planIds). For example, lets take the fifth monitoring plan id in the response above and use it.</p>
                 <span class="note-style">Note: We use the fifth monitoring plan because this is a simple stack configuration.</span>
                 <pre class="code-style"><code>const monPlanId = <span id="monitoring-plan-id"></span></code></pre>
                 
-                <p>Below is a javascript example script.</p>
+                <p>Below is a javascript example script collecting data from the emissions export endpoint from the <a target="_blank" href="https://www.epa.gov/power-sector/cam-api-portal#/swagger/beta-emissions-mgmt">Emissions API</a>.</p>
                 <pre class="code-style">
 <code>const response = await fetch('<div id="emissions-export-url"></div>',
 {
@@ -78,6 +82,33 @@ const data = await response.json();</code></pre>
                 
                 <div class="height-mobile border-1px" style="overflow:auto;">
                     <pre id="emissions-export-response" class="response-style">
+                    loading...
+                    </pre>
+                </div>
+            </li>
+            <li class="usa-process-list__item" style="max-width: none;">
+                <h4 class="usa-process-list__heading">Use a location id</h4>
+                <p>In the first response above, the "Id" under the location objects are the unique identifier (Id) of a monitoring location record. You will see this as parameters 
+                    to use in other endpoints (named: locId). For example, lets take the the same fifth monitoring plan and use the location id.</p>
+                <span class="note-style">Note: There is only one location Id in this example, but that may not always be the case.</span>
+                <pre class="code-style"><code>const locId = <span id="monitoring-locationa-id"></span></code></pre>
+                
+                <p>Below is a javascript example script collecting data from the location attributes endpoint from the <a target="_blank" href="https://www.epa.gov/power-sector/cam-api-portal#/swagger/beta-monitor-plan-mgmt">Monitoring Plan API</a>.</p>
+                <pre class="code-style">
+<code>const response = await fetch('<div id="location-attributes-url"></div>',
+{
+    headers: {
+        "x-api-key": "YOUR_API_KEY_HERE"
+    },
+    referrerPolicy: "no-referrer",
+    "method": "GET",
+    });
+const data = await response.json();</code></pre>
+            
+                <p>Below is the resonse.</p>
+                
+                <div class="height-mobile border-1px" style="overflow:auto;">
+                    <pre id="location-attributes-response" class="response-style">
                     loading...
                     </pre>
                 </div>

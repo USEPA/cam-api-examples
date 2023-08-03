@@ -32,7 +32,7 @@
   const locId = monPlanData[5].locations[0].id;
   document.getElementById("location-attributes-url").innerHTML = 'https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+locId+'attributes';
   
-  const locationAttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+locId+'attributes',
+  const locationAttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+locId+'/attributes',
     {
       headers: {
         "x-api-key": process.env.API_KEY

@@ -51,11 +51,11 @@
 });
 const data = await response.json();</code></pre>
         
-                <p>Below is the resonse.</p>
+                <button class="usa-button" onclick = "monPlanConfigCall()">Run script</button>
             
-                <div class="height-mobile border-1px" style="overflow:auto;">
+                <div class="maxh-mobile border-1px" style="overflow:auto;">
                     <pre id="monitoring-plan-config-response" class="response-style">
-                    loading...
+                    ...
                     </pre>
                 </div>
             </li>
@@ -67,6 +67,7 @@ const data = await response.json();</code></pre>
                 <pre class="code-style"><code>const monPlanId = <span id="monitoring-plan-id"></span></code></pre>
                 
                 <p>Below is a javascript example script collecting data from the emissions export endpoint from the <a target="_blank" href="https://www.epa.gov/power-sector/cam-api-portal#/swagger/beta-emissions-mgmt">Emissions API</a>.</p>
+                
                 <pre class="code-style">
 <code>const response = await fetch('<div id="emissions-export-url"></div>',
 {
@@ -78,11 +79,11 @@ const data = await response.json();</code></pre>
     });
 const data = await response.json();</code></pre>
             
-                <p>Below is the resonse.</p>
+                <button class="usa-button" onclick = "emissionsExportCall()">Run script</button>
                 
-                <div class="height-mobile border-1px" style="overflow:auto;">
+                <div class="maxh-mobile border-1px" style="overflow:auto;">
                     <pre id="emissions-export-response" class="response-style">
-                    loading...
+                    ...
                     </pre>
                 </div>
             </li>
@@ -105,11 +106,11 @@ const data = await response.json();</code></pre>
     });
 const data = await response.json();</code></pre>
             
-                <p>Below is the resonse.</p>
+                <button class="usa-button" onclick = "locationAttributeCall()">Run script</button>
                 
-                <div class="height-mobile border-1px" style="overflow:auto;">
+                <div class="maxh-mobile border-1px" style="overflow:auto;">
                     <pre id="location-attributes-response" class="response-style">
-                    loading...
+                    ...
                     </pre>
                 </div>
             </li>

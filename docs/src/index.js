@@ -54,3 +54,9 @@ async function locationAttributeCall() {
   locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
 }
 
+const monPlanConfigButton = document.getElementById('monPlanConfigButton')
+monPlanConfigButton.onclick = monPlanConfigCall;
+const emissionsExportButton = document.getElementById('emissionsExportButton')
+emissionsExportButton.onclick = emissionsExportCall;
+const locationAttributeButton = document.getElementById('locationAttributeButton')
+locationAttributeButton.onclick = locationAttributeCall;

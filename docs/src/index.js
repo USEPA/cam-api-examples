@@ -2,7 +2,7 @@
 var API_KEY = process.env.API_KEY;
 
 async function monPlanConfigCall() {
-  await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/configurations?orisCodes=3',
+  const monPlanConfigResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/configurations?orisCodes=3',
     {
       headers: {
         "x-api-key": process.env.API_KEY
@@ -14,7 +14,6 @@ async function monPlanConfigCall() {
   const monPlanElem = document.getElementById("monitoring-plan-config-response");
   monPlanElem.innerHTML = '<code class="language-json">'+JSON.stringify(monPlanData, null, 4);+'</code>'
 }
-monPlanConfigCall();
 
 async function emissionsExportCall() {
   const monPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';
@@ -33,7 +32,6 @@ async function emissionsExportCall() {
   const emissionsExportElem = document.getElementById("emissions-export-response");
   emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 }
-emissionsExportCall();
 
 async function locationAttributeCall() {
   const locId = '11';
@@ -52,5 +50,12 @@ async function locationAttributeCall() {
   const locationAttributeElem = document.getElementById("location-attributes-response");
   locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
 }
-locationAttributeCall();
+
+// async functions above
+async function main() { 
+  monPlanConfigCall();
+  emissionsExportCall();
+  locationAttributeCall();
+}
+main();
 

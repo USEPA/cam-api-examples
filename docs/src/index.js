@@ -51,11 +51,7 @@ async function locationAttributeCall() {
   locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
 }
 
-// async functions above
-async function main() { 
-  monPlanConfigCall();
-  emissionsExportCall();
-  locationAttributeCall();
-}
-main();
+monPlanConfigCall();
+emissionsExportCall();
+locationAttributeCall();
 

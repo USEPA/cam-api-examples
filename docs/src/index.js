@@ -2,7 +2,7 @@
 var API_KEY = process.env.API_KEY;
 const monPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';
 document.getElementById("monitoring-plan-id").innerHTML = monPlanId;
-document.getElementById("emissions-export-url").innerHTML = 'https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+monPlanId+'&year=2022&quarter=4';
+document.getElementById("emissions-export-url").innerHTML = 'https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+monPlanId+'&year=2022&quarter=4&reportedValuesOnly=true';
 
 const locId = '11';
 document.getElementById("location-id").innerHTML = locId;

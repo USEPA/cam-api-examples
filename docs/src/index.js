@@ -1,12 +1,16 @@
+import mdIntro from "./content/intro.md";
+import mdSimpleConfig1 from "./content/simple-config-ex-1.md";
+import mdSimpleConfig2 from "./content/simple-config-ex-2.md";
+import mdSimpleConfig3 from "./content/simple-config-ex-3.md";
 
-var API_KEY = process.env.API_KEY;
+document.getElementById("intro").innerHTML = mdIntro;
+document.getElementById("simple-config-ex-1").innerHTML = mdSimpleConfig1;
+document.getElementById("simple-config-ex-2").innerHTML = mdSimpleConfig2;
+document.getElementById("simple-config-ex-3").innerHTML = mdSimpleConfig3;
+
+// Make sure these values match the markdown files!
 const monPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';
-document.getElementById("monitoring-plan-id").innerHTML = monPlanId;
-document.getElementById("emissions-export-url").innerHTML = 'https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+monPlanId+'&year=2022&quarter=4&reportedValuesOnly=true';
-
 const locId = '11';
-document.getElementById("location-id").innerHTML = locId;
-document.getElementById("location-attributes-url").innerHTML = 'https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+locId+'/attributes';
 
 document.getElementById("monPlanConfigButton").onclick=async ()=>{
   const monPlanElem = document.getElementById("monitoring-plan-config-response");

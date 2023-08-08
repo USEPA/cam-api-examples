@@ -1,0 +1,36 @@
+# GitHub Page on Clean Air Markets ECMPS Beta API Examples
+
+The Github page for ECMPS Beta API Examples is hosted at [https://usepa.github.io/cam-api-examples](https://usepa.github.io/cam-api-examples).
+
+## Run Locally
+After forking this repo, `cd .\docs\` then run the following commands:
+
+```
+npm install
+npx gulp compile
+npx gulp init
+npm run build
+```
+
+In the `dist` folder, open `index.html` in your browser.
+
+## Updating the GitHub Page 
+
+### Content
+Content is maintained in the `src` folder using markdown files. This contains all of the text in their respective places. For example, the `simple-config-ex-1.md` file will render to the `<div id="simple-config-ex-1"></div>` in the `/dist/index.html` file. There are javascript files to be aware of and checked for consistance which is explained in the next section.
+
+### Javascript and API calls
+Inside the `/src/index.js` has the code for connecting the markdown files to the respective `<div>` elements. The js file also has the code for making the API calls. 
+
+### Adding an example/content
+1. Add a `div` tag in the `/dist/index.html` with an id to connect the markdown file to the element. (ex. `<div id="simple-config-ex-1"></div>`)
+2. Create a new markdown file for the section in the `/src/content/` directory (ex. `simple-config-ex-1.md`).
+3. Add code to insert the markdown in the `/src/index.js` like the example here:
+```
+import mdSimpleConfig1 from "./content/simple-config-ex-1.md";
+
+document.getElementById("simple-config-ex-1").innerHTML = mdSimpleConfig1;
+```
+4. Add an API call (if applicable) by using a previous example and editing to the appropriate call.
+5. Push changes to main (GitHub actions will run and update the page automatically).
+

@@ -13,10 +13,12 @@
   "devDependencies": {
     "@uswds/compile": "^1.0.0",
     "dotenv-webpack": "^8.0.1",
+    "html-loader": "^4.2.0",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@uswds/uswds": "^3.5.0"
+    "@uswds/uswds": "^3.5.0",
+    "markdown-loader": "^8.0.0"
   }
 }

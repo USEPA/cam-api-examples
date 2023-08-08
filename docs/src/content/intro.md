@@ -1,0 +1,3 @@
+# Clean Air Markets ECMPS Beta API Examples
+
+Below are some examples of how the ECMPS Beta API endpoints could be used to find useful information you may be looking for. For the examples below, you only need an API key. If you do not have an API key, you can [request one here](https://www.epa.gov/power-sector/cam-api-portal#/api-key-signup). However, there are endpoints that require a token as well. Generally the endpoints that require a token have the word "workspace" in the endpoint name.

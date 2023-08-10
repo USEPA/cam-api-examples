@@ -1,6 +1,6 @@
 ### Use a location id
 
-In the monitoring plan configuration response above (first example), the "Id" under the location objects are the unique identifier (Id) of a monitoring location record. You will see this as parameters to use in other endpoints (named: locId). For example, lets take the the same fifth monitoring plan and use the location id.
+In the monitoring plan configuration response above (first example), the "Id" under the location objects are the unique identifier (Id) of a monitoring location record. You will see this as parameters to use in other endpoints (named: locId). For example, lets take the same fifth monitoring plan and use the location id.
 
 Below is a javascript example script collecting data from the location attributes endpoint from the [Monitoring Plan API](https://www.epa.gov/power-sector/cam-api-portal#/swagger/beta-monitor-plan-mgmt).
 

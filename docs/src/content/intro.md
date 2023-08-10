@@ -1,6 +1,6 @@
 # Clean Air Markets ECMPS Beta API Examples
 
->❗ **This example page uses beta (non production) APIs**
+❗**This example page uses beta (non production) APIs**❗
 
 This page provides examples using Representational State Transfer (REST) Application Programming Interfaces (API) for accessing data that the Clean Air Markets Division (CAMD) collects to run programs designed to reduce air pollution from power plants.
 

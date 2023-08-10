@@ -1,4 +1,4 @@
-### Use an Oris Code (Facility Id) to get a monitoring plan configuration
+### Get a monitoring plan configuration
 
 The best place to start for most people is with the **configurations endpoint** in the [Monitoring Plan API](https://www.epa.gov/power-sector/cam-api-portal#/swagger/beta-monitor-plan-mgmt)
 

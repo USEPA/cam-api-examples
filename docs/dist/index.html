@@ -6,27 +6,39 @@
     <title>ECMPS Beta API Examples</title>
     <link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
     <style>
-        pre {
-          padding: 0.5em; 
-          border: 1px solid #71767a; 
-          background: #f0f0f0; 
-          text-wrap: wrap;
-        }
-        #main-content h3 {
-          font-style: italic;
-        }
-        .response-style {
-          display: block; 
-          overflow-x: auto; 
-          padding: 0.5em; 
-          background: rgb(51, 51, 51); 
-          color: white; 
-          margin: 0;
-        }
-      </style>
+      h1 {
+        margin: 0;
+      }
+      .banner {
+          position: relative;
+          width: 100%;
+          height: auto;
+          background-color: #1a4480;
+      }
+      pre {
+        padding: 0.5em; 
+        border: 1px solid #71767a; 
+        background: #f0f0f0; 
+        text-wrap: wrap;
+      }
+      #main-content h3 {
+        font-style: italic;
+      }
+      .response-style {
+        display: block; 
+        overflow-x: auto; 
+        padding: 0.5em; 
+        background: rgb(51, 51, 51); 
+        color: white; 
+        margin: 0;
+      }
+    </style>
   </head>
-  <body class="bg-base-lightest margin-x-5 margin-y-2">
-    <div class="usa-in-page-nav-container">
+  <body class="bg-base-lightest">
+    <div class="banner">
+        <h1 id="clean-air-markets-ecmps-beta-api-examples" class="text-base-lightest padding-y-2 padding-left-5">Clean Air Markets ECMPS Beta API Examples</h1>
+    </div>
+    <div class="usa-in-page-nav-container margin-x-5 margin-y-2">
         <aside
             class="usa-in-page-nav"
             data-title-text="On this page"
@@ -73,6 +85,9 @@
                     
                 <button class="usa-button" id = "locationAttributeButton">Run script</button>
                 
+                <table align="center" id="summaryValueDataTable" border="1">
+                </table>
+
                 <div class="maxh-mobile margin-y-2 border-1px" style="overflow:auto;">
 <pre id="location-attributes-response" class="response-style">
 ...
@@ -81,7 +96,7 @@
             </div>
 
             <div><div class="border radius-md bg-white padding-x-2 margin-y-2">
-                <h2 id="complex-configuration">Complex Configuration</h2>
+                <h2 id="common-stack-configuration">Common Stack Configuration</h2>
             </div>
             
             </div>

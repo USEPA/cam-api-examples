@@ -77,8 +77,8 @@ document.getElementById("simpleMonPlanConfigButton").onclick=async ()=>{
 };
 
 document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
-  var emissionsExportElem = document.getElementById("simple-emissions-export-response");
-  emissionsExportElem.innerHTML = 'loading...'
+  //var emissionsExportElem = document.getElementById("simple-emissions-export-response");
+  //emissionsExportElem.innerHTML = 'loading...'
   
   var emissionsExportResponse = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+simpleMonPlanId+'&year=2022&quarter=4&reportedValuesOnly=true',
     {
@@ -91,7 +91,7 @@ document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
     var emissionsExportData = await emissionsExportResponse.json();
   var summaryValueData = emissionsExportData["summaryValueData"];
   constructTable(summaryValueData, '#simpleSummaryValueDataTable');
-  emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
+  //emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 };
 
 document.getElementById("simpleLocationAttributeButton").onclick=async ()=>{
@@ -141,8 +141,8 @@ document.getElementById("commonMonPlanConfigButton").onclick=async ()=>{
 };
 
 document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
-  var emissionsExportElem = document.getElementById("common-emissions-export-response");
-  emissionsExportElem.innerHTML = 'loading...'
+ //var emissionsExportElem = document.getElementById("common-emissions-export-response");
+ // emissionsExportElem.innerHTML = 'loading...'
   
   var emissionsExportResponse = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+commonMonPlanId+'&year=2022&quarter=4&reportedValuesOnly=true',
     {
@@ -155,7 +155,7 @@ document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
     var emissionsExportData = await emissionsExportResponse.json();
   var summaryValueData = emissionsExportData["summaryValueData"];
   constructTable(summaryValueData, '#commonSummaryValueDataTable');
-  emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
+  //emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 };
 
 document.getElementById("commonLocationAttributeButton").onclick=async ()=>{

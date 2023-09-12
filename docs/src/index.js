@@ -9,8 +9,8 @@ document.getElementById("simple-config-ex-2").innerHTML = mdSimpleConfig2;
 document.getElementById("simple-config-ex-3").innerHTML = mdSimpleConfig3;
 
 // Make sure these values match the markdown files!
-const monPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';
-const locId = '11';
+const simpleMonPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';
+const simpleLocId = '11';
 
 // GENERAL FUNCTIONS
 function constructTable(list, selector) {
@@ -60,11 +60,11 @@ function constructHeaders(list, selector) {
 // END GENERAL FUNCTIONS
 
 
-document.getElementById("monPlanConfigButton").onclick=async ()=>{
-  const monPlanElem = document.getElementById("monitoring-plan-config-response");
+document.getElementById("simpleMonPlanConfigButton").onclick=async ()=>{
+  var monPlanElem = document.getElementById("simple-monitoring-plan-config-response");
   monPlanElem.innerHTML = 'loading...'
 
-  const monPlanConfigResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/configurations?orisCodes=3',
+  var monPlanConfigResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/configurations?orisCodes=3',
     {
       headers: {
         "x-api-key": process.env.API_KEY
@@ -72,15 +72,15 @@ document.getElementById("monPlanConfigButton").onclick=async ()=>{
       "referrer": "https://usepa.github.io/",
       "method": "GET",
     });
-  const monPlanData = await monPlanConfigResponse.json();
+  var monPlanData = await monPlanConfigResponse.json();
   monPlanElem.innerHTML = '<code class="language-json">'+JSON.stringify(monPlanData, null, 4);+'</code>'
 };
 
-document.getElementById("emissionsExportButton").onclick=async ()=>{
-  const emissionsExportElem = document.getElementById("emissions-export-response");
+document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
+  var emissionsExportElem = document.getElementById("simple-emissions-export-response");
   emissionsExportElem.innerHTML = 'loading...'
   
-  const emissionsExportResponse = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+monPlanId+'&year=2022&quarter=4&reportedValuesOnly=true',
+  var emissionsExportResponse = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+simpleMonPlanId+'&year=2022&quarter=4&reportedValuesOnly=true',
     {
       headers: {
         "x-api-key": process.env.API_KEY
@@ -88,17 +88,17 @@ document.getElementById("emissionsExportButton").onclick=async ()=>{
       referrerPolicy: "no-referrer",
       "method": "GET",
     });
-  const emissionsExportData = await emissionsExportResponse.json();
-  const summaryValueData = emissionsExportData["summaryValueData"];
+    var emissionsExportData = await emissionsExportResponse.json();
+  var summaryValueData = emissionsExportData["summaryValueData"];
   constructTable(summaryValueData, '#summaryValueDataTable');
   emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 };
 
-document.getElementById("locationAttributeButton").onclick=async ()=>{
-  const locationAttributeElem = document.getElementById("location-attributes-response");
+document.getElementById("simpleLocationAttributeButton").onclick=async ()=>{
+  var locationAttributeElem = document.getElementById("simple-location-attributes-response");
   locationAttributeElem.innerHTML = 'loading...'
   
-  const locationAttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+locId+'/attributes',
+  var locationAttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+simpleLocId+'/attributes',
     {
       headers: {
         "x-api-key": process.env.API_KEY
@@ -106,6 +106,70 @@ document.getElementById("locationAttributeButton").onclick=async ()=>{
       referrerPolicy: "no-referrer",
       "method": "GET",
     });
-  const locationAttributeData = await locationAttributeResponse.json();
+    var locationAttributeData = await locationAttributeResponse.json();
+  locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
+};
+
+// Common stack examples
+import mdCommonConfig1 from "./content/common-config-ex-1.md";
+import mdCommonConfig2 from "./content/common-config-ex-2.md";
+import mdCommonConfig3 from "./content/common-config-ex-3.md";
+
+document.getElementById("intro").innerHTML = mdIntro;
+document.getElementById("common-config-ex-1").innerHTML = mdCommonConfig1;
+document.getElementById("common-config-ex-2").innerHTML = mdCommonConfig2;
+document.getElementById("common-config-ex-3").innerHTML = mdCommonConfig3;
+
+// Make sure these values match the markdown files!
+const commonMonPlanId = 'TWCORNEL5-C0E3879920A14159BAA98E03F1980A7A';
+const commonLocId = '5'; // location of the stack CS0AAN
+
+document.getElementById("commonMonPlanConfigButton").onclick=async ()=>{
+  var monPlanElem = document.getElementById("common-monitoring-plan-config-response");
+  monPlanElem.innerHTML = 'loading...'
+
+  var monPlanConfigResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/configurations?orisCodes=3',
+    {
+      headers: {
+        "x-api-key": process.env.API_KEY
+      },
+      "referrer": "https://usepa.github.io/",
+      "method": "GET",
+    });
+  var monPlanData = await monPlanConfigResponse.json();
+  monPlanElem.innerHTML = '<code class="language-json">'+JSON.stringify(monPlanData, null, 4);+'</code>'
+};
+
+document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
+  var emissionsExportElem = document.getElementById("common-emissions-export-response");
+  emissionsExportElem.innerHTML = 'loading...'
+  
+  var emissionsExportResponse = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+commonMonPlanId+'&year=2022&quarter=4&reportedValuesOnly=true',
+    {
+      headers: {
+        "x-api-key": process.env.API_KEY
+      },
+      referrerPolicy: "no-referrer",
+      "method": "GET",
+    });
+    var emissionsExportData = await emissionsExportResponse.json();
+  //var summaryValueData = emissionsExportData["summaryValueData"];
+  //constructTable(summaryValueData, '#summaryValueDataTable');
+  emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
+};
+
+document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
+  var locationAttributeElem = document.getElementById("common-location-attributes-response");
+  locationAttributeElem.innerHTML = 'loading...'
+  
+  var locationAttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId+'/attributes',
+    {
+      headers: {
+        "x-api-key": process.env.API_KEY
+      },
+      referrerPolicy: "no-referrer",
+      "method": "GET",
+    });
+    var locationAttributeData = await locationAttributeResponse.json();
   locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
 };

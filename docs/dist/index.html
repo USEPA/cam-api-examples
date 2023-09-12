@@ -13,10 +13,10 @@
         margin: 0;
       }
       .banner {
-          position: relative; 
-          width: 100%;
-          height: auto;
-          background-color: #1a4480;
+        position: relative; 
+        width: 100%;
+        height: auto;
+        background-color: #1a4480;
       }
       pre {
         padding: 0.5em; 
@@ -27,13 +27,33 @@
       #main-content h3 {
         font-style: italic;
       }
-      .response-style {
+      .code-response-style {
         display: block; 
         overflow-x: auto; 
         padding: 0.5em; 
         background: rgb(51, 51, 51); 
         color: white; 
         margin: 0;
+      }
+      .summaryTable {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .summaryTable td, .summaryTable th {
+        border: 1px solid #a9aeb1;
+        padding: 8px;
+      }
+
+      .summaryTable tr:nth-child(even){background-color: #dfe1e2;}
+
+      .summaryTable th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #005ea2;
+        color: white;
       }
     </style>
   </head>
@@ -65,7 +85,7 @@
                 <button class="usa-button" id = "simpleMonPlanConfigButton">Run script</button>
             
                 <div class="maxh-mobile margin-y-2 border-1px" style="overflow:auto;">
-<pre id="simple-monitoring-plan-config-response" class="response-style">
+<pre id="simple-monitoring-plan-config-response" class="code-response-style">
 ...
 </pre>
                 </div>
@@ -77,9 +97,10 @@
                 <button class="usa-button margin-bottom-1" id = "simpleEmissionsExportButton">Run script</button>
                 
                 <div id="simple-emissions-export-response">
-                  ...
+<pre class="code-response-style">
+...
+</pre>
                 </div>
-
 
                 <hr>
 
@@ -88,7 +109,7 @@
                 <button class="usa-button" id = "simpleLocationAttributeButton">Run script</button>
 
                 <div class="maxh-mobile margin-y-2 border-1px" style="overflow:auto;">
-<pre id="simple-location-attributes-response" class="response-style">
+<pre id="simple-location-attributes-response" class="code-response-style">
 ...
 </pre>
                 </div>
@@ -104,7 +125,7 @@
                 <button class="usa-button" id = "commonMonPlanConfigButton">Run script</button>
             
                 <div class="maxh-mobile margin-y-2 border-1px" style="overflow:auto;">
-<pre id="common-monitoring-plan-config-response" class="response-style">
+<pre id="common-monitoring-plan-config-response" class="code-response-style">
 ...
 </pre>
                 </div>
@@ -116,7 +137,9 @@
                 <button class="usa-button margin-bottom-1" id = "commonEmissionsExportButton">Run script</button>
                 
                 <div id="common-emissions-export-response">
-                  ...
+<pre class="code-response-style">
+...
+</pre>
                 </div>
 
                 <hr>
@@ -126,7 +149,7 @@
                 <button class="usa-button" id = "commonLocationAttributeButton">Run script</button>
 
                 <div class="maxh-mobile margin-y-2 border-1px" style="overflow:auto;">
-<pre id="common-location-attributes-response" class="response-style">
+<pre id="common-location-attributes-response" class="code-response-style">
 ...
 </pre>
                 </div>

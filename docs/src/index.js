@@ -90,7 +90,7 @@ document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
     });
     var emissionsExportData = await emissionsExportResponse.json();
   var summaryValueData = emissionsExportData["summaryValueData"];
-  constructTable(summaryValueData, '#summaryValueDataTable');
+  constructTable(summaryValueData, '#simpleSummaryValueDataTable');
   emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 };
 
@@ -153,8 +153,8 @@ document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
       "method": "GET",
     });
     var emissionsExportData = await emissionsExportResponse.json();
-  //var summaryValueData = emissionsExportData["summaryValueData"];
-  //constructTable(summaryValueData, '#summaryValueDataTable');
+  var summaryValueData = emissionsExportData["summaryValueData"];
+  constructTable(summaryValueData, '#commonSummaryValueDataTable');
   emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 };
 

@@ -90,7 +90,7 @@ document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
     });
     var emissionsExportData = await emissionsExportResponse.json();
   var summaryValueData = emissionsExportData["summaryValueData"];
-  emissionsExportElem.innerHTML = '<table align="center" class="summaryTable" id="simpleSummaryValueDataTable" border="1"></table>'
+  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table align="center" class="summaryTable" id="simpleSummaryValueDataTable" border="1"></table>'
   constructTable(summaryValueData, '#simpleSummaryValueDataTable');
   //emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 };
@@ -123,7 +123,9 @@ document.getElementById("common-config-ex-3").innerHTML = mdCommonConfig3;
 
 // Make sure these values match the markdown files!
 const commonMonPlanId = 'TWCORNEL5-C0E3879920A14159BAA98E03F1980A7A';
-const commonLocId = '5'; // location of the stack CS0AAN
+const commonLocId6 = '6'; // location of the unit 1
+const commonLocId7 = '7'; // location of the unit 2
+const commonLocId5 = '5'; // location of the stack CS0AAN
 
 document.getElementById("commonMonPlanConfigButton").onclick=async ()=>{
   var monPlanElem = document.getElementById("common-monitoring-plan-config-response");
@@ -155,16 +157,16 @@ document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
     });
     var emissionsExportData = await emissionsExportResponse.json();
   var summaryValueData = emissionsExportData["summaryValueData"];
-  emissionsExportElem.innerHTML = '<table align="center" class="summaryTable" id="commonSummaryValueDataTable" border="1"></table>'
+  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table align="center" class="summaryTable" id="commonSummaryValueDataTable" border="1"></table>'
   constructTable(summaryValueData, '#commonSummaryValueDataTable');
   //emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 };
 
 document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
   var locationAttributeElem = document.getElementById("common-location-attributes-response");
-  locationAttributeElem.innerHTML = 'loading...'
+  locationAttributeElem.getElementsByClassName("code-response-style")[0].innerHTML = 'loading...'
   
-  var locationAttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId+'/attributes',
+  var location6AttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId6+'/attributes',
     {
       headers: {
         "x-api-key": process.env.API_KEY
@@ -172,6 +174,32 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       referrerPolicy: "no-referrer",
       "method": "GET",
     });
-    var locationAttributeData = await locationAttributeResponse.json();
-  locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
+  var location6AttributeData = await location5AttributeResponse.json();
+  var location7AttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId7+'/attributes',
+    {
+      headers: {
+        "x-api-key": process.env.API_KEY
+      },
+      referrerPolicy: "no-referrer",
+      "method": "GET",
+    });
+  var location7AttributeData = await location7AttributeResponse.json();
+  var location5AttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId5+'/attributes',
+    {
+      headers: {
+        "x-api-key": process.env.API_KEY
+      },
+      referrerPolicy: "no-referrer",
+      "method": "GET",
+    });
+  var location5AttributeData = await location5AttributeResponse.json();
+  emissionsExportElem.innerHTML = '<table align="center" class="summaryTable" id="commonLocation6SummaryValueDataTable" border="1"></table>'+
+  '<table align="center" class="summaryTable" id="commonLocation7SummaryValueDataTable" border="1"></table>'+
+  '<table align="center" class="summaryTable" id="commonLocation5SummaryValueDataTable" border="1"></table>'
+  constructTable(location6AttributeData, '#commonLocation6SummaryValueDataTable');
+  constructTable(location7AttributeData, '#commonLocation7SummaryValueDataTable');
+  constructTable(location5AttributeData, '#commonLocation5SummaryValueDataTable');
+  
+  
+  //locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
 };

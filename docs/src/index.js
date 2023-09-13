@@ -193,7 +193,7 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       "method": "GET",
     });
   var location5AttributeData = await location5AttributeResponse.json();
-  locationAttributeData = location6AttributeData.concat(location7AttributeData);
+  var locationAttributeData = location6AttributeData.concat(location7AttributeData);
   locationAttributeData = locationAttributeData.concat(location5AttributeData);
   locationAttributeElem.innerHTML = '<table align="center" class="summaryTable" id="commonLocationSummaryValueDataTable" border="1"></table>'
   constructTable(locationAttributeData, '#commonLocationSummaryValueDataTable');

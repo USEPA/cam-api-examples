@@ -166,7 +166,7 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
   var locationAttributeElem = document.getElementById("common-location-attributes-response");
   locationAttributeElem.getElementsByClassName("code-response-style")[0].innerHTML = 'loading...'
   
-  var location6AttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId6+'/attributes',
+  var location6AttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId6+'/methods',
     {
       headers: {
         "x-api-key": process.env.API_KEY
@@ -175,7 +175,7 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       "method": "GET",
     });
   var location6AttributeData = await location6AttributeResponse.json();
-  var location7AttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId7+'/attributes',
+  var location7AttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId7+'/methods',
     {
       headers: {
         "x-api-key": process.env.API_KEY
@@ -184,7 +184,7 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       "method": "GET",
     });
   var location7AttributeData = await location7AttributeResponse.json();
-  var location5AttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId5+'/attributes',
+  var location5AttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId5+'/methods',
     {
       headers: {
         "x-api-key": process.env.API_KEY

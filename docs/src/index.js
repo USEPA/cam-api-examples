@@ -174,7 +174,7 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       referrerPolicy: "no-referrer",
       "method": "GET",
     });
-  var location6AttributeData = await location5AttributeResponse.json();
+  var location6AttributeData = await location6AttributeResponse.json();
   var location7AttributeResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+commonLocId7+'/attributes',
     {
       headers: {

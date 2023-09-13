@@ -193,7 +193,7 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       "method": "GET",
     });
   var location5AttributeData = await location5AttributeResponse.json();
-  emissionsExportElem.innerHTML = '<table align="center" class="summaryTable" id="commonLocation6SummaryValueDataTable" border="1"></table>'+
+  locationAttributeElem.innerHTML = '<table align="center" class="summaryTable" id="commonLocation6SummaryValueDataTable" border="1"></table>'+
   '<table align="center" class="summaryTable" id="commonLocation7SummaryValueDataTable" border="1"></table>'+
   '<table align="center" class="summaryTable" id="commonLocation5SummaryValueDataTable" border="1"></table>'
   constructTable(location6AttributeData, '#commonLocation6SummaryValueDataTable');

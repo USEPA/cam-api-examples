@@ -108,9 +108,17 @@ document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
     });
     var emissionsExportData = await emissionsExportResponse.json();
   var summaryValueData = emissionsExportData["summaryValueData"];
-  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table class="usa-table usa-table--striped" id="simpleSummaryValueDataTable"></table>'
-  constructTable(summaryValueData, '#simpleSummaryValueDataTable');
-  //emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
+
+  
+  var exportSummaryValueData = [
+    {
+      "name": "Monitoring Plan ID: TWCORNEL5-C0E3879920A14159BAA98E03F1980A7A",
+      "tableData": summaryValueData
+    }
+  ]
+
+  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table class="usa-table usa-table--borderless" id="simpleExportSummaryValueDataTable"></table>'
+  constructTable(exportSummaryValueData, '#simpleExportSummaryValueDataTable');
 };
 
 document.getElementById("simpleLocationAttributeButton").onclick=async ()=>{
@@ -172,7 +180,7 @@ document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
       referrerPolicy: "no-referrer",
       "method": "GET",
     });
-    var emissionsExportData = await emissionsExportResponse.json();
+  var emissionsExportData = await emissionsExportResponse.json();
   var summaryValueData = emissionsExportData["summaryValueData"];
 
   var exportSummaryValueData = [

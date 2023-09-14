@@ -13,31 +13,67 @@ const simpleMonPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';
 const simpleLocId = '11';
 
 // GENERAL FUNCTIONS
-function constructTable(list, selector) {
-             
-  // Getting the all column names
-  var cols = constructHeaders(list, selector); 
-  // Start body
-  var body = $('<tbody/>');
+// GENERAL FUNCTIONS
+function constructTable(parentList, selector) {
 
-  // Traversing the JSON data
-  for (var i = 0; i < list.length; i++) {
-      var row = $('<tr/>');  
-      for (var colIndex = 0; colIndex < cols.length; colIndex++)
-      {
-          var val = list[i][cols[colIndex]];
-           
-          // If there is any key, which is matching
-          // with the column name
-          if (val == null) val = ""; 
-              row.append($('<td/>').html(val));
-      }
-       
-      // Adding each row to the body
-      body.append(row);
+  // Getting the all column names
+  var cols = constructHeaders(parentList[0]["tableData"], selector); 
+
+  for (var i = 0; i < parentList.length; i++){
+    var obj = parentList[i];
+
+    var list = obj["tableData"]
+
+    $(selector).append('<tr><td class="bg-primary-lighter" colspan="'+String(cols.length+1)+'">'+obj["name"]+'</tr></td>');
+
+    // Start body
+    var body = $('<tbody/>');
+
+    // Traversing the JSON data
+    for (var j = 0; j < list.length; j++) {
+        var row = $('<tr/>');  
+        for (var colIndex = 0; colIndex < cols.length; colIndex++)
+        {
+            var val = list[j][cols[colIndex]];
+
+            // If there is any key, which is matching
+            // with the column name
+            if (val == null) val = ""; 
+                row.append($('<td/>').html(val));
+        }
+
+        // Adding each row to the body
+        body.append(row);
+    }
+    // Adding body to table
+    $(selector).append(body);
   }
-  // Adding body to table
-  $(selector).append(body);
+}
+
+function constructHeaders(list, selector) {
+  var columns = [];
+  // Construct the headercand header row
+  var header = $('<thead/>');
+  var headerrow = $('<tr/>');
+  //header.append($('<tr/>').html(k));
+   
+  for (var i = 0; i < list.length; i++) {
+      var row = list[i];
+       
+      for (var k in row) {
+          if ($.inArray(k, columns) == -1) {
+              columns.push(k);
+               
+              // Creating the header
+              headerrow.append($('<th/>').html(k));
+          }
+      }
+  }
+  
+  header.append(headerrow);
+  // Appending the header to the table
+  $(selector).append(header);
+      return columns;
 }
 
 function constructHeaders(list, selector) {
@@ -199,14 +235,26 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       "method": "GET",
     });
   var location5AttributeData = await location5AttributeResponse.json();
-  var locationAttributeData = location6AttributeData.concat(location7AttributeData);
-  locationAttributeData = locationAttributeData.concat(location5AttributeData);
-  locationAttributeElem.innerHTML = '<h4 class="margin-x-2">Unit 1:</h4><table class="usa-table usa-table--striped" id="commonLocation6SummaryValueDataTable"></table>'+
-  '<h4 class="margin-x-2">Unit 2:</h4><table class="usa-table usa-table--striped" id="commonLocation7SummaryValueDataTable"></table>'+
-  '<h4 class="margin-x-2">Stack CS0AAN:</h4><table class="usa-table usa-table--striped" id="commonLocation5SummaryValueDataTable"></table>'
-  constructTable(location6AttributeData, '#commonLocation6SummaryValueDataTable');
-  constructTable(location7AttributeData, '#commonLocation7SummaryValueDataTable');
-  constructTable(location5AttributeData, '#commonLocation5SummaryValueDataTable');
+  //var locationAttributeData = location6AttributeData.concat(location7AttributeData);
+  //locationAttributeData = locationAttributeData.concat(location5AttributeData);
+
+  var locationAttributeData = [
+    {
+      "name": "Unit 1",
+      "tableData": location6AttributeData
+    },
+    {
+      "name": "Unit 2",
+      "tableData": location7AttributeData},
+    {
+      "name": "Stack CS0AAN",
+      "tableData": location5AttributeData}
+  ]
+
+  locationAttributeElem.innerHTML = '<h4 class="margin-x-2">Unit 1:</h4><table class="usa-table usa-table--striped" id="commonLocation6SummaryValueDataTable"></table>'
+  constructTable(locationAttributeData, '#commonLocation6SummaryValueDataTable');
+  //constructTable(location7AttributeData, '#commonLocation7SummaryValueDataTable');
+  //constructTable(location5AttributeData, '#commonLocation5SummaryValueDataTable');
   
   
   //locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'

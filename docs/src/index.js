@@ -27,7 +27,7 @@ function constructTable(parentList, selector) {
 
     var list = obj["tableData"]
 
-    $(selector).append('<tr><td class="bg-primary-lighter" colspan="'+String(cols.length+1)+'">'+obj["name"]+'</tr></td>');
+    body.append('<tr><td class="bg-primary-lighter" colspan="'+String(cols.length+1)+'">'+obj["name"]+'</tr></td>');
 
     // Traversing the JSON data
     for (var j = 0; j < list.length; j++) {

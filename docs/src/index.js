@@ -17,6 +17,7 @@ function constructTable(list, selector) {
              
   // Getting the all column names
   var cols = constructHeaders(list, selector); 
+  var body = $('<tbody/>');
 
   // Traversing the JSON data
   for (var i = 0; i < list.length; i++) {
@@ -32,13 +33,16 @@ function constructTable(list, selector) {
       }
        
       // Adding each row to the table
-      $(selector).append(row);
+      
+      body.append(row);
   }
+  $(selector).append(body);
 }
 
 function constructHeaders(list, selector) {
   var columns = [];
-  var header = $('<tr/>');
+  var header = $('<thead/>');
+  header.append($('<tr/>').html(k));
    
   for (var i = 0; i < list.length; i++) {
       var row = list[i];

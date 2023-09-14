@@ -75,31 +75,6 @@ function constructHeaders(list, selector) {
   $(selector).append(header);
       return columns;
 }
-
-function constructHeaders(list, selector) {
-  var columns = [];
-  // Construct the headercand header row
-  var header = $('<thead/>');
-  var headerrow = $('<tr/>');
-  //header.append($('<tr/>').html(k));
-   
-  for (var i = 0; i < list.length; i++) {
-      var row = list[i];
-       
-      for (var k in row) {
-          if ($.inArray(k, columns) == -1) {
-              columns.push(k);
-               
-              // Creating the header
-              headerrow.append($('<th/>').html(k));
-          }
-      }
-  }
-  header.append(headerrow);
-  // Appending the header to the table
-  $(selector).append(header);
-      return columns;
-} 
 // END GENERAL FUNCTIONS
 
 

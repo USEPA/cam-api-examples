@@ -97,7 +97,7 @@ document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
     });
     var emissionsExportData = await emissionsExportResponse.json();
   var summaryValueData = emissionsExportData["summaryValueData"];
-  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table align="center" class="summaryTable" id="simpleSummaryValueDataTable" border="1"></table>'
+  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table class="usa-table usa-table--striped" id="simpleSummaryValueDataTable"></table>'
   constructTable(summaryValueData, '#simpleSummaryValueDataTable');
   //emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 };
@@ -163,7 +163,7 @@ document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
     });
     var emissionsExportData = await emissionsExportResponse.json();
   var summaryValueData = emissionsExportData["summaryValueData"];
-  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table align="center" class="summaryTable" id="commonSummaryValueDataTable" border="1"></table>'
+  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table class="usa-table usa-table--striped" id="commonSummaryValueDataTable"></table>'
   constructTable(summaryValueData, '#commonSummaryValueDataTable');
   //emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
 };
@@ -201,9 +201,9 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
   var location5AttributeData = await location5AttributeResponse.json();
   var locationAttributeData = location6AttributeData.concat(location7AttributeData);
   locationAttributeData = locationAttributeData.concat(location5AttributeData);
-  locationAttributeElem.innerHTML = '<h4 class="margin-x-2">Unit 1:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation6SummaryValueDataTable" border="1"></table>'+
-  '<h4 class="margin-x-2">Unit 2:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation7SummaryValueDataTable" border="1"></table>'+
-  '<h4 class="margin-x-2">Stack CS0AAN:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation5SummaryValueDataTable" border="1"></table>'
+  locationAttributeElem.innerHTML = '<h4 class="margin-x-2">Unit 1:</h4><table class="usa-table usa-table--striped" id="commonLocation6SummaryValueDataTable"></table>'+
+  '<h4 class="margin-x-2">Unit 2:</h4><table class="usa-table usa-table--striped" id="commonLocation7SummaryValueDataTable"></table>'+
+  '<h4 class="margin-x-2">Stack CS0AAN:</h4><table class="usa-table usa-table--striped" id="commonLocation5SummaryValueDataTable"></table>'
   constructTable(location6AttributeData, '#commonLocation6SummaryValueDataTable');
   constructTable(location7AttributeData, '#commonLocation7SummaryValueDataTable');
   constructTable(location5AttributeData, '#commonLocation5SummaryValueDataTable');

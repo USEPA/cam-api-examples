@@ -116,7 +116,6 @@ import mdCommonConfig1 from "./content/common-config-ex-1.md";
 import mdCommonConfig2 from "./content/common-config-ex-2.md";
 import mdCommonConfig3 from "./content/common-config-ex-3.md";
 
-document.getElementById("intro").innerHTML = mdIntro;
 document.getElementById("common-config-ex-1").innerHTML = mdCommonConfig1;
 document.getElementById("common-config-ex-2").innerHTML = mdCommonConfig2;
 document.getElementById("common-config-ex-3").innerHTML = mdCommonConfig3;
@@ -195,9 +194,9 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
   var location5AttributeData = await location5AttributeResponse.json();
   var locationAttributeData = location6AttributeData.concat(location7AttributeData);
   locationAttributeData = locationAttributeData.concat(location5AttributeData);
-  locationAttributeElem.innerHTML = '<table align="center" class="summaryTable" id="commonLocation6SummaryValueDataTable" border="1"></table>'+
-  '<table align="center" class="summaryTable" id="commonLocation7SummaryValueDataTable" border="1"></table>'+
-  '<table align="center" class="summaryTable" id="commonLocation5SummaryValueDataTable" border="1"></table>'
+  locationAttributeElem.innerHTML = '<4h>Unit 1:</h4><table align="center" class="summaryTable" id="commonLocation6SummaryValueDataTable" border="1"></table>'+
+  '<4h>Unit 2:</h4><table align="center" class="summaryTable" id="commonLocation7SummaryValueDataTable" border="1"></table>'+
+  '<4h>Stack CS0AAN:</h4><table align="center" class="summaryTable" id="commonLocation5SummaryValueDataTable" border="1"></table>'
   constructTable(location6AttributeData, '#commonLocation6SummaryValueDataTable');
   constructTable(location7AttributeData, '#commonLocation7SummaryValueDataTable');
   constructTable(location5AttributeData, '#commonLocation5SummaryValueDataTable');

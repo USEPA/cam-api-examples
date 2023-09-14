@@ -65,7 +65,7 @@ function constructHeaders(list, selector) {
               columns.push(k);
                
               // Creating the header
-              headerrow.append($('<th style="background-color:#1a4480;"/>').html(k));
+              headerrow.append($('<th style="background-color:#1a4480;color:white;"/>').html(k));
           }
       }
   }

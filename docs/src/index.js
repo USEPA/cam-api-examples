@@ -19,15 +19,15 @@ function constructTable(parentList, selector) {
   // Getting the all column names
   var cols = constructHeaders(parentList[0]["tableData"], selector); 
 
+  // Start body
+  var body = $('<tbody/>');
+
   for (var i = 0; i < parentList.length; i++){
     var obj = parentList[i];
 
     var list = obj["tableData"]
 
     $(selector).append('<tr><td class="bg-primary-lighter" colspan="'+String(cols.length+1)+'">'+obj["name"]+'</tr></td>');
-
-    // Start body
-    var body = $('<tbody/>');
 
     // Traversing the JSON data
     for (var j = 0; j < list.length; j++) {

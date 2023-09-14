@@ -2,11 +2,13 @@ import mdIntro from "./content/intro.md";
 import mdSimpleConfig1 from "./content/simple-config-ex-1.md";
 import mdSimpleConfig2 from "./content/simple-config-ex-2.md";
 import mdSimpleConfig3 from "./content/simple-config-ex-3.md";
+import mdSimpleConfig4 from "./content/simple-config-ex-4.md";
 
 document.getElementById("intro").innerHTML = mdIntro;
 document.getElementById("simple-config-ex-1").innerHTML = mdSimpleConfig1;
 document.getElementById("simple-config-ex-2").innerHTML = mdSimpleConfig2;
 document.getElementById("simple-config-ex-3").innerHTML = mdSimpleConfig3;
+document.getElementById("simple-config-ex-4").innerHTML = mdSimpleConfig4;
 
 // Make sure these values match the markdown files!
 const simpleMonPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';

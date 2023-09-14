@@ -17,6 +17,7 @@ function constructTable(list, selector) {
              
   // Getting the all column names
   var cols = constructHeaders(list, selector); 
+  // Start body
   var body = $('<tbody/>');
 
   // Traversing the JSON data
@@ -32,17 +33,19 @@ function constructTable(list, selector) {
               row.append($('<td/>').html(val));
       }
        
-      // Adding each row to the table
-      
+      // Adding each row to the body
       body.append(row);
   }
+  // Adding body to table
   $(selector).append(body);
 }
 
 function constructHeaders(list, selector) {
   var columns = [];
+  // Construct the headercand header row
   var header = $('<thead/>');
-  header.append($('<tr/>').html(k));
+  var headerrow = $('<tr/>');
+  //header.append($('<tr/>').html(k));
    
   for (var i = 0; i < list.length; i++) {
       var row = list[i];
@@ -52,11 +55,11 @@ function constructHeaders(list, selector) {
               columns.push(k);
                
               // Creating the header
-              header.append($('<th/>').html(k));
+              headerrow.append($('<th/>').html(k));
           }
       }
   }
-   
+  header.append(headerrow);
   // Appending the header to the table
   $(selector).append(header);
       return columns;
@@ -198,9 +201,9 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
   var location5AttributeData = await location5AttributeResponse.json();
   var locationAttributeData = location6AttributeData.concat(location7AttributeData);
   locationAttributeData = locationAttributeData.concat(location5AttributeData);
-  locationAttributeElem.innerHTML = '<h4>Unit 1:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation6SummaryValueDataTable" border="1"></table>'+
-  '<h4>Unit 2:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation7SummaryValueDataTable" border="1"></table>'+
-  '<h4>Stack CS0AAN:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation5SummaryValueDataTable" border="1"></table>'
+  locationAttributeElem.innerHTML = '<h4 class="margin-x-2>Unit 1:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation6SummaryValueDataTable" border="1"></table>'+
+  '<h4 class="margin-x-2>Unit 2:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation7SummaryValueDataTable" border="1"></table>'+
+  '<h4 class="margin-x-2>Stack CS0AAN:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation5SummaryValueDataTable" border="1"></table>'
   constructTable(location6AttributeData, '#commonLocation6SummaryValueDataTable');
   constructTable(location7AttributeData, '#commonLocation7SummaryValueDataTable');
   constructTable(location5AttributeData, '#commonLocation5SummaryValueDataTable');

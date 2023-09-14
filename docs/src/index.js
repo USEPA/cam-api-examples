@@ -201,9 +201,9 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
   var location5AttributeData = await location5AttributeResponse.json();
   var locationAttributeData = location6AttributeData.concat(location7AttributeData);
   locationAttributeData = locationAttributeData.concat(location5AttributeData);
-  locationAttributeElem.innerHTML = '<h4 class="margin-x-2>Unit 1:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation6SummaryValueDataTable" border="1"></table>'+
-  '<h4 class="margin-x-2>Unit 2:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation7SummaryValueDataTable" border="1"></table>'+
-  '<h4 class="margin-x-2>Stack CS0AAN:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation5SummaryValueDataTable" border="1"></table>'
+  locationAttributeElem.innerHTML = '<h4 class="margin-x-2">Unit 1:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation6SummaryValueDataTable" border="1"></table>'+
+  '<h4 class="margin-x-2">Unit 2:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation7SummaryValueDataTable" border="1"></table>'+
+  '<h4 class="margin-x-2">Stack CS0AAN:</h4><table align="center" class="usa-table usa-table--striped" id="commonLocation5SummaryValueDataTable" border="1"></table>'
   constructTable(location6AttributeData, '#commonLocation6SummaryValueDataTable');
   constructTable(location7AttributeData, '#commonLocation7SummaryValueDataTable');
   constructTable(location5AttributeData, '#commonLocation5SummaryValueDataTable');

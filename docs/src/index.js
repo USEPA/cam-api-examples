@@ -45,9 +45,9 @@ function constructTable(parentList, selector) {
         // Adding each row to the body
         body.append(row);
     }
-    // Adding body to table
-    $(selector).append(body);
   }
+  // Adding body to table
+  $(selector).append(body);
 }
 
 function constructHeaders(list, selector) {

@@ -174,9 +174,16 @@ document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
     });
     var emissionsExportData = await emissionsExportResponse.json();
   var summaryValueData = emissionsExportData["summaryValueData"];
-  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table class="usa-table usa-table--striped" id="commonSummaryValueDataTable"></table>'
-  constructTable(summaryValueData, '#commonSummaryValueDataTable');
-  //emissionsExportElem.innerHTML = '<code class="language-json">'+JSON.stringify(emissionsExportData, null, 4);+'</code>'
+
+  var exportSummaryValueData = [
+    {
+      "name": "Monitoring Plan ID: TWCORNEL5-C0E3879920A14159BAA98E03F1980A7A",
+      "tableData": summaryValueData
+    }
+  ]
+
+  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table class="usa-table usa-table--borderless" id="commonExportSummaryValueDataTable"></table>'
+  constructTable(exportSummaryValueData, '#commonExportSummaryValueDataTable');
 };
 
 document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
@@ -210,25 +217,21 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       "method": "GET",
     });
   var location5AttributeData = await location5AttributeResponse.json();
-  //var locationAttributeData = location6AttributeData.concat(location7AttributeData);
-  //locationAttributeData = locationAttributeData.concat(location5AttributeData);
 
   var locationAttributeData = [
     {
-      "name": "Unit 1",
+      "name": "Unit ID: 1",
       "tableData": location6AttributeData
     },
     {
-      "name": "Unit 2",
+      "name": "Unit ID: 2",
       "tableData": location7AttributeData},
     {
-      "name": "Stack CS0AAN",
+      "name": "Stack/pipe ID: CS0AAN",
       "tableData": location5AttributeData}
   ]
 
-  locationAttributeElem.innerHTML = '<table class="usa-table usa-table--striped" id="commonLocationSummaryValueDataTable"></table>'
+  locationAttributeElem.innerHTML = '<table class="usa-table usa-table--borderless" id="commonLocationSummaryValueDataTable"></table>'
   constructTable(locationAttributeData, '#commonLocationSummaryValueDataTable');
   
-  
-  //locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
 };

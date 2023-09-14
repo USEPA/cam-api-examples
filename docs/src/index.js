@@ -53,7 +53,7 @@ function constructTable(parentList, selector) {
 function constructHeaders(list, selector) {
   var columns = [];
   // Construct the headercand header row
-  var header = $('<thead/>');
+  var header = $('<thead style="position: sticky;top: 0;"/>');
   var headerrow = $('<tr/>');
   //header.append($('<tr/>').html(k));
    
@@ -65,7 +65,7 @@ function constructHeaders(list, selector) {
               columns.push(k);
                
               // Creating the header
-              headerrow.append($('<th/>').html(k));
+              headerrow.append($('<th style="background-color:#1a4480;"/>').html(k));
           }
       }
   }
@@ -226,10 +226,8 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       "tableData": location5AttributeData}
   ]
 
-  locationAttributeElem.innerHTML = '<h4 class="margin-x-2">Unit 1:</h4><table class="usa-table usa-table--striped" id="commonLocation6SummaryValueDataTable"></table>'
-  constructTable(locationAttributeData, '#commonLocation6SummaryValueDataTable');
-  //constructTable(location7AttributeData, '#commonLocation7SummaryValueDataTable');
-  //constructTable(location5AttributeData, '#commonLocation5SummaryValueDataTable');
+  locationAttributeElem.innerHTML = '<table class="usa-table usa-table--striped" id="commonLocationSummaryValueDataTable"></table>'
+  constructTable(locationAttributeData, '#commonLocationSummaryValueDataTable');
   
   
   //locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'

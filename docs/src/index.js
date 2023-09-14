@@ -115,7 +115,7 @@ document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
   
   var exportSummaryValueData = [
     {
-      "name": "Monitoring Plan ID: TWCORNEL5-C0E3879920A14159BAA98E03F1980A7A",
+      "name": "Monitoring Plan ID: "+simpleMonPlanId,
       "tableData": summaryValueData
     }
   ]
@@ -156,7 +156,7 @@ document.getElementById("simpleUnitControlButton").onclick=async ()=>{
   
   var unitControlTableData = [
     {
-      "name": "Monitoring Plan ID: TWCORNEL5-C0E3879920A14159BAA98E03F1980A7A",
+      "name": "Monitoring Plan ID: "+simpleMonPlanId,
       "tableData": unitControlData
     }
   ]
@@ -213,7 +213,7 @@ document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
 
   var exportSummaryValueData = [
     {
-      "name": "Monitoring Plan ID: TWCORNEL5-C0E3879920A14159BAA98E03F1980A7A",
+      "name": "Monitoring Plan ID: "+commonMonPlanId,
       "tableData": summaryValueData
     }
   ]

@@ -11,6 +11,7 @@ document.getElementById("simple-config-ex-3").innerHTML = mdSimpleConfig3;
 // Make sure these values match the markdown files!
 const simpleMonPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';
 const simpleLocId = '11';
+const simpleUnitId = '5';
 
 // GENERAL FUNCTIONS
 // GENERAL FUNCTIONS
@@ -77,7 +78,7 @@ function constructHeaders(list, selector) {
 }
 // END GENERAL FUNCTIONS
 
-
+// Simple stack examples
 document.getElementById("simpleMonPlanConfigButton").onclick=async ()=>{
   var monPlanElem = document.getElementById("simple-monitoring-plan-config-response");
   monPlanElem.innerHTML = 'loading...'
@@ -117,7 +118,7 @@ document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
     }
   ]
 
-  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table class="usa-table usa-table--borderless" id="simpleExportSummaryValueDataTable"></table>'
+  emissionsExportElem.innerHTML = '<h4 class="margin-x-2">Summary Value Data from Emissions Export Endpoint</h4><table class="usa-table usa-table--borderless" id="simpleExportSummaryValueDataTable"></table>'
   constructTable(exportSummaryValueData, '#simpleExportSummaryValueDataTable');
 };
 
@@ -135,6 +136,31 @@ document.getElementById("simpleLocationAttributeButton").onclick=async ()=>{
     });
     var locationAttributeData = await locationAttributeResponse.json();
   locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
+};
+
+document.getElementById("simpleUnitControlButton").onclick=async ()=>{
+  var unitControlElem = document.getElementById("simple-unit-control-response");
+  unitControlElem.getElementsByClassName("code-response-style")[0].innerHTML = 'loading...'
+  
+  var unitControlResponse = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+simpleLocId+'/units/'+simpleUnitId+'/unit-controls',
+    {
+      headers: {
+        "x-api-key": process.env.API_KEY
+      },
+      referrerPolicy: "no-referrer",
+      "method": "GET",
+    });
+  var unitControlData = await unitControlResponse.json();
+  
+  var unitControlTableData = [
+    {
+      "name": "Monitoring Plan ID: TWCORNEL5-C0E3879920A14159BAA98E03F1980A7A",
+      "tableData": unitControlData
+    }
+  ]
+
+  unitControlElem.innerHTML = '<h4 class="margin-x-2">Unit Controls</h4><table class="usa-table usa-table--borderless" id="simpleUnitControlDataTable"></table>'
+  constructTable(unitControlTableData, '#simpleUnitControlDataTable');
 };
 
 // Common stack examples
@@ -190,7 +216,7 @@ document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
     }
   ]
 
-  emissionsExportElem.innerHTML = '<h4>Summary Value Data from Emissions Export Endpoint</h4><table class="usa-table usa-table--borderless" id="commonExportSummaryValueDataTable"></table>'
+  emissionsExportElem.innerHTML = '<h4 class="margin-x-2">Summary Value Data from Emissions Export Endpoint</h4><table class="usa-table usa-table--borderless" id="commonExportSummaryValueDataTable"></table>'
   constructTable(exportSummaryValueData, '#commonExportSummaryValueDataTable');
 };
 

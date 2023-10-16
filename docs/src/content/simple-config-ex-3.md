@@ -7,11 +7,11 @@ Below is a javascript example script collecting data from the location attribute
 **_NOTE:_**  There is only one location Id in this example, but that may not always be the case.
 
 ```
-const locId = 11
+const simpleLocId = '11'
 ```
 
 ```
-const response = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/11/attributes',
+const response = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+simpleLocId+'/attributes',
 {
     headers: {
         "x-api-key": "YOUR_API_KEY_HERE"

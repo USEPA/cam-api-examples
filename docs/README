@@ -17,7 +17,7 @@ In the `dist` folder, open `index.html` in your browser.
 ## Updating the GitHub Page 
 
 ### Content
-Content is maintained in the `src` folder using markdown files. This contains all of the text in their respective places. For example, the `simple-config-ex-1.md` file will render to the `<div id="simple-config-ex-1"></div>` in the `/dist/index.html` file. There are javascript files to be aware of and checked for consistance which is explained in the next section.
+Content is maintained in the `/src/content/` folder using markdown files. This contains all of the text in their respective places. For example, the `simple-config-ex-1.md` file will render to the `<div id="simple-config-ex-1"></div>` in the `/dist/index.html` file. You will also need to use the `/src/index.js` which is a file that handles all the API calls and other javascript for each example. For API returns there are element styles for a code response or a table response. Using previous examples to follow the same format.
 
 ### Javascript and API calls
 Inside the `/src/index.js` has the code for connecting the markdown files to the respective `<div>` elements. The js file also has the code for making the API calls. 
@@ -28,9 +28,8 @@ Inside the `/src/index.js` has the code for connecting the markdown files to the
 3. Add code to insert the markdown in the `/src/index.js` like the example here:
 ```
 import mdSimpleConfig1 from "./content/simple-config-ex-1.md";
-
 document.getElementById("simple-config-ex-1").innerHTML = mdSimpleConfig1;
 ```
-4. Add an API call (if applicable) by using a previous example and editing to the appropriate call.
-5. Push changes to main (GitHub actions will run and update the page automatically).
+4. Add an API call (if applicable) to add a call to fill in a response return or table return (use previous examples to help).
+5. Push changes to main (there is a GitHub action that will run and update the page automatically [action runs when changes are pushed]).
 

@@ -5,12 +5,12 @@ Continuing to use the the fifth monitoring plan form the monitoring plan configu
 Below is a javascript example script collecting data from the unit controls endpoint from the [Monitoring Plan API](https://www.epa.gov/power-sector/cam-api-portal#/swagger/beta-monitor-plan-mgmt).
 
 ```
-const locId = 11
-const unitId = 11
+const simpleLocId = '11'
+const simpleUnitId = '5'
 ```
 
 ```
-const response = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+locId+'/units/'+unitId+'/unit-controls',
+const response = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/locations/'+simpleLocId+'/units/'+simpleUnitId+'/unit-controls',
 {
     headers: {
         "x-api-key": "YOUR_API_KEY_HERE"

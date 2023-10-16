@@ -1,26 +1,12 @@
+// Import intro text and inject markdown to html element
 import mdIntro from "./content/intro.md";
-import mdSimpleConfig1 from "./content/simple-config-ex-1.md";
-import mdSimpleConfig2 from "./content/simple-config-ex-2.md";
-import mdSimpleConfig3 from "./content/simple-config-ex-3.md";
-import mdSimpleConfig4 from "./content/simple-config-ex-4.md";
-
 document.getElementById("intro").innerHTML = mdIntro;
-document.getElementById("simple-config-ex-1").innerHTML = mdSimpleConfig1;
-document.getElementById("simple-config-ex-2").innerHTML = mdSimpleConfig2;
-document.getElementById("simple-config-ex-3").innerHTML = mdSimpleConfig3;
-document.getElementById("simple-config-ex-4").innerHTML = mdSimpleConfig4;
 
-// Make sure these values match the markdown files!
-const simpleMonPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';
-const simpleLocId = '11';
-const simpleUnitId = '5';
-
-// GENERAL FUNCTIONS
 // GENERAL FUNCTIONS
 function constructTable(parentList, selector) {
 
   // Getting the all column names
-  var cols = constructHeaders(parentList[0]["tableData"], selector); 
+  var cols = constructTableHeaders(parentList[0]["tableData"], selector); 
 
   // Start body
   var body = $('<tbody/>');
@@ -52,8 +38,7 @@ function constructTable(parentList, selector) {
   // Adding body to table
   $(selector).append(body);
 }
-
-function constructHeaders(list, selector) {
+function constructTableHeaders(list, selector) {
   var columns = [];
   // Construct the headercand header row
   var header = $('<thead style="position: sticky;top: 0;"/>');
@@ -80,7 +65,23 @@ function constructHeaders(list, selector) {
 }
 // END GENERAL FUNCTIONS
 
-// Simple stack examples
+// SIMPLE STACK EXAMPLES
+// Import simple-config text and inject markdowns to html elements
+import mdSimpleConfig1 from "./content/simple-config-ex-1.md";
+import mdSimpleConfig2 from "./content/simple-config-ex-2.md";
+import mdSimpleConfig3 from "./content/simple-config-ex-3.md";
+import mdSimpleConfig4 from "./content/simple-config-ex-4.md";
+document.getElementById("simple-config-ex-1").innerHTML = mdSimpleConfig1;
+document.getElementById("simple-config-ex-2").innerHTML = mdSimpleConfig2;
+document.getElementById("simple-config-ex-3").innerHTML = mdSimpleConfig3;
+document.getElementById("simple-config-ex-4").innerHTML = mdSimpleConfig4;
+
+// Make sure these values match the markdown files!
+const simpleMonPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF';
+const simpleLocId = '11';
+const simpleUnitId = '5';
+
+// example 1
 document.getElementById("simpleMonPlanConfigButton").onclick=async ()=>{
   var monPlanElem = document.getElementById("simple-monitoring-plan-config-response");
   monPlanElem.innerHTML = 'loading...'
@@ -97,6 +98,7 @@ document.getElementById("simpleMonPlanConfigButton").onclick=async ()=>{
   monPlanElem.innerHTML = '<code class="language-json">'+JSON.stringify(monPlanData, null, 4);+'</code>'
 };
 
+// example 2
 document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
   var emissionsExportElem = document.getElementById("simple-emissions-export-response");
   emissionsExportElem.getElementsByClassName("code-response-style")[0].innerHTML = 'loading...'
@@ -124,6 +126,7 @@ document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
   constructTable(exportSummaryValueData, '#simpleExportSummaryValueDataTable');
 };
 
+// example 3
 document.getElementById("simpleLocationAttributeButton").onclick=async ()=>{
   var locationAttributeElem = document.getElementById("simple-location-attributes-response");
   locationAttributeElem.innerHTML = 'loading...'
@@ -140,6 +143,7 @@ document.getElementById("simpleLocationAttributeButton").onclick=async ()=>{
   locationAttributeElem.innerHTML = '<code class="language-json">'+JSON.stringify(locationAttributeData, null, 4);+'</code>'
 };
 
+// example 4
 document.getElementById("simpleUnitControlButton").onclick=async ()=>{
   var unitControlElem = document.getElementById("simple-unit-control-response");
   unitControlElem.getElementsByClassName("code-response-style")[0].innerHTML = 'loading...'
@@ -165,11 +169,11 @@ document.getElementById("simpleUnitControlButton").onclick=async ()=>{
   constructTable(unitControlTableData, '#simpleUnitControlDataTable');
 };
 
-// Common stack examples
+// COMMON STACK EXAMPLES
+// Import common-config text and inject markdowns to html elements
 import mdCommonConfig1 from "./content/common-config-ex-1.md";
 import mdCommonConfig2 from "./content/common-config-ex-2.md";
 import mdCommonConfig3 from "./content/common-config-ex-3.md";
-
 document.getElementById("common-config-ex-1").innerHTML = mdCommonConfig1;
 document.getElementById("common-config-ex-2").innerHTML = mdCommonConfig2;
 document.getElementById("common-config-ex-3").innerHTML = mdCommonConfig3;
@@ -180,6 +184,7 @@ const commonLocId6 = '6'; // location of the unit 1
 const commonLocId7 = '7'; // location of the unit 2
 const commonLocId5 = '5'; // location of the stack CS0AAN
 
+// example 1
 document.getElementById("commonMonPlanConfigButton").onclick=async ()=>{
   var monPlanElem = document.getElementById("common-monitoring-plan-config-response");
   monPlanElem.innerHTML = 'loading...'
@@ -196,6 +201,7 @@ document.getElementById("commonMonPlanConfigButton").onclick=async ()=>{
   monPlanElem.innerHTML = '<code class="language-json">'+JSON.stringify(monPlanData, null, 4);+'</code>'
 };
 
+// example 2
 document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
   var emissionsExportElem = document.getElementById("common-emissions-export-response");
   emissionsExportElem.getElementsByClassName("code-response-style")[0].innerHTML = 'loading...'
@@ -222,6 +228,7 @@ document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
   constructTable(exportSummaryValueData, '#commonExportSummaryValueDataTable');
 };
 
+// example 3
 document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
   var locationAttributeElem = document.getElementById("common-location-attributes-response");
   locationAttributeElem.getElementsByClassName("code-response-style")[0].innerHTML = 'loading...'

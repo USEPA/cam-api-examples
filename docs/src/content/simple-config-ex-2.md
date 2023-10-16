@@ -7,11 +7,11 @@ Below is a javascript example script collecting data from the emissions export e
 **_NOTE:_**  We use the fifth monitoring plan because this is a simple stack configuration.
 
 ```
-const monPlanId = TWCORNEL5-488E42008B434177BC7D7BFF138D18EF
+const simpleMonPlanId = 'TWCORNEL5-488E42008B434177BC7D7BFF138D18EF'
 ```
 
 ```
-const response = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId=TWCORNEL5-488E42008B434177BC7D7BFF138D18EF&year=2022&quarter=4&reportedValuesOnly=true',
+const response = await fetch('https://api.epa.gov/easey/beta/emissions-mgmt/emissions/export?monitorPlanId='+simpleMonPlanId+'&year=2022&quarter=4&reportedValuesOnly=true',
 {
     headers: {
         "x-api-key": "YOUR_API_KEY_HERE"

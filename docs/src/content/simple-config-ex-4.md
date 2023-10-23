@@ -15,7 +15,6 @@ const response = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/l
     headers: {
         "x-api-key": "YOUR_API_KEY_HERE"
     },
-    referrerPolicy: "no-referrer",
     "method": "GET",
     });
 const data = await response.json();

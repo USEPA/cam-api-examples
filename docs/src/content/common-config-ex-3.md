@@ -18,7 +18,6 @@ var response = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/loc
     headers: {
         "x-api-key": "YOUR_API_KEY_HERE"
     },
-    referrerPolicy: "no-referrer",
     "method": "GET",
     });
 const unit1Data = await response.json();
@@ -28,7 +27,6 @@ var response = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/loc
     headers: {
         "x-api-key": "YOUR_API_KEY_HERE"
     },
-    referrerPolicy: "no-referrer",
     "method": "GET",
     });
 const unit2Data = await response.json();
@@ -38,7 +36,6 @@ var response = await fetch('https://api.epa.gov/easey/beta/monitor-plan-mgmt/loc
     headers: {
         "x-api-key": "YOUR_API_KEY_HERE"
     },
-    referrerPolicy: "no-referrer",
     "method": "GET",
     });
 const stackCS0AANData = await response.json();

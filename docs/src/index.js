@@ -91,7 +91,6 @@ document.getElementById("simpleMonPlanConfigButton").onclick=async ()=>{
       headers: {
         "x-api-key": process.env.API_KEY
       },
-      "referrer": "https://usepa.github.io/",
       "method": "GET",
     });
   var monPlanData = await monPlanConfigResponse.json();
@@ -108,7 +107,6 @@ document.getElementById("simpleEmissionsExportButton").onclick=async ()=>{
       headers: {
         "x-api-key": process.env.API_KEY
       },
-      referrerPolicy: "no-referrer",
       "method": "GET",
     });
     var emissionsExportData = await emissionsExportResponse.json();
@@ -136,7 +134,6 @@ document.getElementById("simpleLocationAttributeButton").onclick=async ()=>{
       headers: {
         "x-api-key": process.env.API_KEY
       },
-      referrerPolicy: "no-referrer",
       "method": "GET",
     });
     var locationAttributeData = await locationAttributeResponse.json();
@@ -153,7 +150,6 @@ document.getElementById("simpleUnitControlButton").onclick=async ()=>{
       headers: {
         "x-api-key": process.env.API_KEY
       },
-      referrerPolicy: "no-referrer",
       "method": "GET",
     });
   var unitControlData = await unitControlResponse.json();
@@ -194,7 +190,6 @@ document.getElementById("commonMonPlanConfigButton").onclick=async ()=>{
       headers: {
         "x-api-key": process.env.API_KEY
       },
-      "referrer": "https://usepa.github.io/",
       "method": "GET",
     });
   var monPlanData = await monPlanConfigResponse.json();
@@ -211,7 +206,6 @@ document.getElementById("commonEmissionsExportButton").onclick=async ()=>{
       headers: {
         "x-api-key": process.env.API_KEY
       },
-      referrerPolicy: "no-referrer",
       "method": "GET",
     });
   var emissionsExportData = await emissionsExportResponse.json();
@@ -238,7 +232,6 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       headers: {
         "x-api-key": process.env.API_KEY
       },
-      referrerPolicy: "no-referrer",
       "method": "GET",
     });
   var location6AttributeData = await location6AttributeResponse.json();
@@ -247,7 +240,6 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       headers: {
         "x-api-key": process.env.API_KEY
       },
-      referrerPolicy: "no-referrer",
       "method": "GET",
     });
   var location7AttributeData = await location7AttributeResponse.json();
@@ -256,7 +248,6 @@ document.getElementById("commonLocationAttributeButton").onclick=async ()=>{
       headers: {
         "x-api-key": process.env.API_KEY
       },
-      referrerPolicy: "no-referrer",
       "method": "GET",
     });
   var location5AttributeData = await location5AttributeResponse.json();

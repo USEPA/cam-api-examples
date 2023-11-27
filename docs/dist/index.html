@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <base target="_blank">
+    <title>ECMPS Beta API Examples</title>
+    <link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
+    <script src=
+      "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <style>
+      h1 {
+        margin: 0;
+      }
+      .banner {
+        position: relative; 
+        width: 100%;
+        height: auto;
+        background-color: #1a4480;
+      }
+      pre {
+        padding: 0.5em; 
+        border: 1px solid #71767a; 
+        background: #f0f0f0; 
+        text-wrap: wrap;
+      }
+      #main-content h3 {
+        font-style: italic;
+      }
+      .code-response-style {
+        display: block; 
+        overflow-x: auto; 
+        padding: 0.5em; 
+        background: rgb(51, 51, 51); 
+        color: white; 
+        margin: 0;
+      }
+      .custom-bg-primary-lighter {
+        background-color: #d9e8f6;
+      }
+      .custom-bg-primary-dark {
+        background-color: #1a4480;
+      }
+    </style>
+  </head>
+  <body class="bg-base-lightest">
+    <div class="banner">
+        <h1 id="clean-air-markets-ecmps-beta-api-examples" class="text-base-lightest padding-y-2 padding-left-5">Clean Air Markets ECMPS Beta API Examples</h1>
+    </div>
+    <div class="usa-in-page-nav-container margin-x-5 margin-y-2">
+        <aside
+            class="usa-in-page-nav"
+            data-title-text="On this page"
+            data-title-heading-level="h3"
+            data-scroll-offset="0"
+            data-root-margin="0px 0px 0px 0px"
+            data-threshold="1"
+        ></aside>
+        <main id="main-content" class="main-content">
+        <div class="bg-base-lightest">
+
+            <!-- Text content from ./src/content/intro.md -->
+            <div id="intro"></div>
+
+            <div class="border radius-md bg-white padding-x-2 margin-y-2">
+                <h2 id="simple-configuration">Simple Configuration</h2>
+
+                <hr>
+
+                <!-- Text content from ./src/content/simple-config-ex-1.md -->
+                <div id="simple-config-ex-1"></div>
+                
+                <!-- Runs javascript function in ./src/index.js -->
+                <button class="usa-button" id = "simpleMonPlanConfigButton">Run script</button>
+            
+                <!-- Data content from ./src/index.js for code-response fomatting -->
+                <div class="maxh-mobile margin-y-2 border-1px" style="overflow:auto;">
+<pre id="simple-monitoring-plan-config-response" class="code-response-style">
+...
+</pre>
+                </div>
+
+                <hr>
+
+                <!-- Text content from ./src/content/simple-config-ex-2.md -->
+                <div id="simple-config-ex-2"></div>
+            
+                <!-- Runs javascript function in ./src/index.js -->
+                <button class="usa-button" id = "simpleEmissionsExportButton">Run script</button>
+                
+                <!-- Data content from ./src/index.js for usa-table fomatting -->
+                <div id="simple-emissions-export-response" class="maxh-mobile-lg margin-y-2 border-1px" style="overflow:auto;">
+<pre class="code-response-style">
+...
+</pre>
+                </div>
+
+                <hr>
+
+                <!-- Text content from ./src/content/simple-config-ex-3.md -->
+                <div id="simple-config-ex-3"></div>
+                    
+                <!-- Runs javascript function in ./src/index.js -->
+                <button class="usa-button" id = "simpleLocationAttributeButton">Run script</button>
+
+                <!-- Data content from ./src/index.js for code-response fomatting -->
+                <div class="maxh-mobile margin-y-2 border-1px" style="overflow:auto;">
+<pre id="simple-location-attributes-response" class="code-response-style">
+...
+</pre>
+                </div>
+
+                <hr>
+
+                <!-- Text content from ./src/content/simple-config-ex-4.md -->
+                <div id="simple-config-ex-4"></div>
+                    
+                <!-- Runs javascript function in ./src/index.js -->
+                <button class="usa-button" id = "simpleUnitControlButton">Run script</button>
+
+                <!-- Data content from ./src/index.js for usa-table fomatting -->
+                <div id="simple-unit-control-response" class="maxh-mobile-lg margin-y-2 border-1px" style="overflow:auto;">
+<pre class="code-response-style">
+...
+</pre>
+                </div>
+            </div>
+
+            <div class="border radius-md bg-white padding-x-2 margin-y-2">
+                <h2 id="common-stack-configuration">Common Stack Configuration</h2>
+
+                <hr>
+
+                <!-- Text content from ./src/content/common-config-ex-1.md -->
+                <div id="common-config-ex-1"></div>
+                
+                <!-- Runs javascript function in ./src/index.js -->
+                <button class="usa-button" id = "commonMonPlanConfigButton">Run script</button>
+            
+                <!-- Data content from ./src/index.js for code-response fomatting -->
+                <div class="maxh-mobile margin-y-2 border-1px" style="overflow:auto;">
+<pre id="common-monitoring-plan-config-response" class="code-response-style">
+...
+</pre>
+                </div>
+
+                <hr>
+
+                <!-- Text content from ./src/content/common-config-ex-2.md -->
+                <div id="common-config-ex-2"></div>
+            
+                <!-- Runs javascript function in ./src/index.js -->
+                <button class="usa-button" id = "commonEmissionsExportButton">Run script</button>
+                
+                <!-- Data content from ./src/index.js for usa-table fomatting -->
+                <div id="common-emissions-export-response" class="maxh-mobile-lg margin-y-2 border-1px" style="overflow:auto;">
+<pre class="code-response-style">
+...
+</pre>
+                </div>
+
+                <hr>
+
+                <!-- Text content from ./src/content/common-config-ex-3.md -->
+                <div id="common-config-ex-3"></div>
+                
+                <!-- Runs javascript function in ./src/index.js -->
+                <button class="usa-button" id = "commonLocationAttributeButton">Run script</button>
+
+                <!-- Data content from ./src/index.js for usa-table fomatting -->
+                <div id="common-location-attributes-response" class="maxh-mobile-lg margin-y-2 border-1px" style="overflow:auto;">
+<pre class="code-response-style">
+...
+</pre>
+                </div>
+
+            </div>
+            
+        </main>
+    </div>
+    <script src="./assets/js/uswds.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

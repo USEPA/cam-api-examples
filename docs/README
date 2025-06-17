@@ -1,6 +1,6 @@
 # GitHub Page on Clean Air Markets ECMPS Beta API Examples
 
-The Github page for ECMPS Beta API Examples is hosted at [https://usepa.github.io/cam-api-examples](https://usepa.github.io/cam-api-examples).
+The Github page for ECMPS Beta API Examples is hosted at <https://usepa.github.io/cam-api-examples>.
 
 ## Run Locally
 After forking this repo, `cd .\docs\` then run the following commands:
